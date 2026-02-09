@@ -11,7 +11,7 @@ interface SubjectParams {
 export async function subjectRoutes(app: FastifyInstance) {
 
   // POST
-  app.post<{ Body: CreateSubjectDTO }>("/cadastro", async (request, reply) => {
+  app.post<{ Body: CreateSubjectDTO }>("/", async (request, reply) => {
 
     const subject = await prisma.subject.create({
       data: request.body
@@ -24,13 +24,13 @@ export async function subjectRoutes(app: FastifyInstance) {
   });
 
   // GET
-  app.get("/disciplinas", async () => {
+  app.get("/", async () => {
     return prisma.subject.findMany();
   });
 
   // PUT
   app.put<{ Params: SubjectParams; Body: CreateSubjectDTO }>(
-    "/editar/:id",
+    "/:id",
     async (request, reply) => {
 
       const id = Number(request.params.id);
@@ -53,7 +53,7 @@ export async function subjectRoutes(app: FastifyInstance) {
 
   // DELETE
   app.delete<{ Params: SubjectParams }>(
-    "/disciplinas/:id",
+    "/:id",
     async (request, reply) => {
 
       const id = Number(request.params.id);

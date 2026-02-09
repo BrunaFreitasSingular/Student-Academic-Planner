@@ -1,5 +1,5 @@
 import Fastify from "fastify";
-import { subjectRoutes } from "./routes/subjects.routes.ts";
+import { subjectRoutes } from "./routes/subjects.routes.js";
 
 
 
@@ -11,4 +11,4 @@ app.register(subjectRoutes, {
   prefix: "/subjects"
 });
 
-app.listen({port: 5000,host: "0.0.0.0"});
+app.listen({port: 5000});
