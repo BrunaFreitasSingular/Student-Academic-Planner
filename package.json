@@ -22,6 +22,7 @@
     "@types/node": "^25.2.0",
     "npx": "^10.2.2",
     "prisma": "6",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
   }
 }
