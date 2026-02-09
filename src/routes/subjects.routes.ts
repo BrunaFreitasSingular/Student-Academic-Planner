@@ -3,7 +3,6 @@ import { prisma } from "../prismaClient.js";
 import { CreateSubjectDTO } from "../models/Subjects.js";
 
 
-
 interface SubjectParams {
   id: string;
 }

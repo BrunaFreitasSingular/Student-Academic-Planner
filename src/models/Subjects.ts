@@ -7,10 +7,4 @@ interface Subject {
   status: string;
 }
 
-interface Profile {
-    name: string;
-    course: string;
-    semester: number;
-}
-
 export type CreateSubjectDTO = Omit<Subject, "id">;
