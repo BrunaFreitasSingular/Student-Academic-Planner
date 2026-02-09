@@ -10,6 +10,27 @@ interface SubjectParams {
 
 export async function subjectRoutes(app: FastifyInstance) {
 
+//PATCH - Atualização parcial
+app.patch<{ Params: SubjectParams; Body: CreateSubjectDTO }>(
+    "/:id/status", async (request, reply) => {
+      const id = Number(request.params.id);
+
+      try {
+        const updated = await prisma.subject.update({
+          where: { id },
+          data: { status: request.body.status }
+        });
+
+        return reply.send({
+          mensagem: "Status atualizado!",
+          disciplina: updated
+        });
+      } catch {
+        return reply.code(404).send({ erro: "Disciplina não encontrada" });
+      }
+    }
+  );
+
   // POST
   app.post<{ Body: CreateSubjectDTO }>("/", async (request, reply) => {
 
@@ -73,5 +94,4 @@ export async function subjectRoutes(app: FastifyInstance) {
     }
   );
 }
-
 
