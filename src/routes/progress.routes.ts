@@ -3,7 +3,7 @@ import { prisma } from "../prismaClient.js";
 
 
 //Visao geral do progresso
-export async function gradesRoutes(app: FastifyInstance) {
+export async function progressRoutes(app: FastifyInstance) {
 
   app.get("/", async () => {
 
