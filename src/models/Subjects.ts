@@ -8,3 +8,4 @@ interface Subject {
 }
 
 export type CreateSubjectDTO = Omit<Subject, "id">;
+export type UpdateSubjectDTO = Partial<CreateSubjectDTO>;
