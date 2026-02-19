@@ -1,6 +1,6 @@
 import Fastify from "fastify";
-import { subjectRoutes } from "./routes/subjects.routes.js";
-import { progressRoutes } from "./routes/progress.routes.js";
+import { subjectRoutes } from "./presentation/routes/subjects.routes.js";
+import { progressRoutes } from "./presentation/routes/progress.routes.js";
 
 
 

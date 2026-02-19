@@ -1,6 +1,6 @@
-import { prisma } from "../prismaClient.js"
+import { prisma } from "../../prismaClient.js"
 
-import { CreateSubjectDTO } from "../models/Subjects.js";
+import { CreateSubjectDTO } from "../entities/Subjects.js";
 
 export async function create(data: CreateSubjectDTO){
     return prisma.subject.create({ data })
