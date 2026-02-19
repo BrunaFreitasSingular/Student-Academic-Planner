@@ -3,7 +3,6 @@ import * as subjectsController from "../controllers/subjects.controllers.js";
 
 export async function subjectRoutes(app: FastifyInstance) {
 
-
   // CRUD
   app.post("/", subjectsController.create);
   app.get("/", subjectsController.list);

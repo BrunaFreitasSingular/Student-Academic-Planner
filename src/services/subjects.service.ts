@@ -1,30 +1,23 @@
-import { prisma } from "../prismaClient.js";
+import * as subjectsRepository from "../repositories/subjects.repository.js"
+
 import type { CreateSubjectDTO, UpdateSubjectDTO } from "../models/Subjects.js";
 
 export async function createSubject(data: CreateSubjectDTO) {
-  return prisma.subject.create({ data });
+  return subjectsRepository.create(data);
 }
 
 export async function listSubjects() {
-  return prisma.subject.findMany();
+  return subjectsRepository.findAll();
 }
 
 export async function updateSubject(id: number, data: CreateSubjectDTO) {
-  return prisma.subject.update({
-    where: { id },
-    data
-  });
+  return subjectsRepository.update(id, data);
 }
 
-export async function patchSubject(id: number, data: UpdateSubjectDTO) {
-  return prisma.subject.update({
-    where: { id },
-    data
-  });
+export async function patchSubject(id: number, data: Partial<CreateSubjectDTO>) {
+  return subjectsRepository.update(id, data);
 }
 
 export async function deleteSubject(id: number) {
-  return prisma.subject.delete({
-    where: { id }
-  });
-}
+  return subjectsRepository.deleteById(id);
+} 
