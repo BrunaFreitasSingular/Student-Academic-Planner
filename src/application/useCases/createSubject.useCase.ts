@@ -1,6 +1,6 @@
-import * as subjectsRepository from "../domain/repositories/subjects.repository.js"
+import * as subjectsRepository from "../../domain/repositories/subjects.repository.js"
 
-import type { CreateSubjectDTO, UpdateSubjectDTO } from "../domain/entities/Subjects.js";
+import type { CreateSubjectDTO, UpdateSubjectDTO } from "../../domain/entities/Subjects.js";
 
 export async function createSubject(data: CreateSubjectDTO) {
   return subjectsRepository.create(data);

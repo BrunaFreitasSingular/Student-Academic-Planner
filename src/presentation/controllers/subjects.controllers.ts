@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import type { CreateSubjectDTO, UpdateSubjectDTO } from "../../domain/entities/Subjects.js";
-import * as subjectsService from "../../useCases/createSubject.useCase.js";
+import * as subjectsService from "../../application/useCases/createSubject.useCase.js";
 
 type SubjectParams = { id: string };
 type StatusBody = { status: string };
