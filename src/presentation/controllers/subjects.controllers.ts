@@ -1,6 +1,6 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import type { CreateSubjectDTO, UpdateSubjectDTO } from "../../domain/entities/Subjects.js";
-import * as subjectsService from "../../application/useCases/createSubject.useCase.js";
+import * as CreateSubjectUseCase from "../../application/useCases/createSubject.useCase.js";
 
 type SubjectParams = { id: string };
 type StatusBody = { status: string };
@@ -11,7 +11,7 @@ export async function create(
   request: FastifyRequest<{ Body: CreateSubjectDTO }>,
   reply: FastifyReply
 ) {
-  const subject = await subjectsService.createSubject(request.body);
+  const subject = await CreateSubjectUseCase.createSubject(request.body);
 
   return reply.code(201).send({
     mensagem: "Cadastro concluído!",
@@ -21,7 +21,7 @@ export async function create(
 
 // GET /
 export async function list(_: FastifyRequest, reply: FastifyReply) {
-  const subjects = await subjectsService.listSubjects();
+  const subjects = await CreateSubjectUseCase.listSubjects();
   return reply.send(subjects);
 }
 
@@ -33,7 +33,7 @@ export async function put(
   const id = Number(request.params.id);
 
   try {
-    const updated = await subjectsService.updateSubject(id, request.body);
+    const updated = await CreateSubjectUseCase.updateSubject(id, request.body);
     return reply.send(updated);
   } catch {
     return reply.code(404).send({ erro: "Disciplina não encontrada" });
@@ -48,7 +48,7 @@ export async function patch(
   const id = Number(request.params.id);
 
   try {
-    const updated = await subjectsService.patchSubject(id, request.body);
+    const updated = await CreateSubjectUseCase.patchSubject(id, request.body);
     return reply.send(updated);
   } catch {
     return reply.code(404).send({ erro: "Disciplina não encontrada" });
@@ -63,7 +63,7 @@ export async function remove(
   const id = Number(request.params.id);
 
   try {
-    await subjectsService.deleteSubject(id);
+    await CreateSubjectUseCase.deleteSubject(id);
     return reply.code(204).send();
   } catch {
     return reply.code(404).send({ erro: "Disciplina não encontrada" });
