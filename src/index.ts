@@ -1,6 +1,6 @@
 import Fastify from "fastify";
-import { subjectRoutes } from "./routes/subjects.routes.js";
-import { gradesRoutes } from "./routes/progress.routes.js";
+import { subjectsRoutes } from "./presentation/routes/subjects.routes.js";
+import { progressRoutes } from "./presentation/routes/progress.routes.js";
 
 
 
@@ -8,9 +8,9 @@ import { gradesRoutes } from "./routes/progress.routes.js";
 const app = Fastify({ logger: true });
 
 // registra as rotas pro CRUD
-await app.register(subjectRoutes, { prefix: "/subjects"});
+await app.register(subjectsRoutes, { prefix: "/subjects"});
 // registra as rotas do acompanhamento do progresso
-await app.register(gradesRoutes, { prefix: "/progress" });
+await app.register(progressRoutes, { prefix: "/progress" });
 console.log(app.printRoutes());
 
 

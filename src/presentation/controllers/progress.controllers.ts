@@ -1,12 +1,8 @@
-import { FastifyInstance } from "fastify";
-import { prisma } from "../prismaClient.js";
+import { prisma } from "../../prismaClient.js";
+import type { FastifyReply, FastifyRequest } from "fastify";
 
 
-//Visao geral do progresso
-export async function gradesRoutes(app: FastifyInstance) {
-
-  app.get("/", async () => {
-
+export async function metrics(_: FastifyRequest, reply: FastifyReply){
     const total = await prisma.subject.count();
     console.log("Total de disciplinas" + total)
 
@@ -32,6 +28,4 @@ export async function gradesRoutes(app: FastifyInstance) {
       planejadas,
       percentual
     };
-  });
-
 }
