@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
     "target": "ES2022",
+    "lib":["ES2023"],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "types": ["node","jest"],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "outDir": "dist",
-    "rootDir": "src"
   },
-  "include": ["src/**/*", "src/prismaClient.ts"],
+  "include": ["src/**/*", "src/prismaClient.ts", "jest.config.ts"],
   "exclude": ["node_modules"]
 }
