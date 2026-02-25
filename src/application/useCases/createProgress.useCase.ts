@@ -1,9 +1,33 @@
-import { prisma } from "../../prismaClient.js";
-import type { CreateSubjectDTO } from "../../domain/entities/Subjects.js";
+import { Progress } from "../../domain/entities/Progress.js";
+import { ProgressRepository } from "../../domain/repositories/progress.repository.js";
 
+interface CreateProgressInput {
+  subjectId: number;
+  completedLessons: number;
+  totalLessons: number;
+}
 
+export class CreateProgressUseCase {
 
-export async function countSubject(id: number, data: CreateSubjectDTO) {
-    const total = await prisma.subject.count();
-    
+  constructor(private progressRepository: ProgressRepository) {}
+
+  async execute(data: CreateProgressInput): Promise<Progress> {
+
+    if (!data.subjectId) {
+      throw new Error("SubjectId is required");
+    }
+
+    if (data.completedLessons > data.totalLessons) {
+      throw new Error("Completed lessons cannot exceed total lessons");
+    }
+
+    const progress = new Progress(
+      null,
+      data.subjectId,
+      data.completedLessons,
+      data.totalLessons
+    );
+
+    return this.progressRepository.create(progress);
+  }
 }

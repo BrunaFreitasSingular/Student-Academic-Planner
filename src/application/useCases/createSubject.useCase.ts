@@ -1,29 +1,33 @@
-import { SubjectRepository } from "../../domain/repositories/subjects.repository.js"
-
-import type { CreateSubjectDTO } from "../../domain/entities/Subjects.js";
+import { Subject } from "../../domain/entities/Subject.js";
+import { SubjectRepository } from "../../domain/repositories/subjects.repository.ts";
+import { CreateSubjectDTO } from "../dtos/CreateSubjectDTO.js";
 
 export class CreateSubjectUseCase {
   constructor(private subjectRepository: SubjectRepository) {}
 
-  // validar os dados aqui 
   async execute(data: CreateSubjectDTO) {
 
-    if (!data.name) {
+    const subject = new Subject(
+      null,
+      data.name,
+      data.credits,
+      data.year,
+      data.semester,
+      data.status
+    );
+
+    if (!subject.name) {
       throw new Error("Nome é obrigatório");
     }
 
-    const valoresCreditosPermitidos = [2,4,6];
-
-    if(!valoresCreditosPermitidos.includes(data.credits)){
-        throw new Error("Numero de creditos invalido");
+    if (!subject.isValidCredits()) {
+      throw new Error("Número de créditos inválido");
     }
 
-    const valoresSemestrePermitidos = [1,2];
-
-    if(!valoresSemestrePermitidos.includes(data.semester)){
-        throw new Error("Adicione um semestre valido (1) ou (2).")
+    if (!subject.isValidSemester()) {
+      throw new Error("Semestre inválido");
     }
 
-    return this.subjectRepository.create(data);
+    return this.subjectRepository.create(subject);
   }
 }
