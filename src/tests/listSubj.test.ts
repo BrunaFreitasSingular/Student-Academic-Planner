@@ -3,7 +3,7 @@ import { jest } from "@jest/globals";
 
 import { ListSubjectsUseCase } from "../application/useCases/listSubject.useCase.ts";
 
-import { PrismaSubjectRepository } from "../infrastructure/database/PrismaSubjectRepository.ts";
+import { PrismaSubjectRepository } from "../infrastructure/database/repositories/PrismaSubjectRepository.ts";
 
 
 /*

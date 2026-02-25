@@ -1,4 +1,4 @@
-import { prisma } from "../../prismaClient.js";
+import { prisma } from "../../infrastructure/database/prismaClient.ts";
 import type { FastifyReply, FastifyRequest } from "fastify";
 
 
