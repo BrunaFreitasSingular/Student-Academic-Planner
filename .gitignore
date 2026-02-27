@@ -11,3 +11,8 @@ build/
 prisma/dev.db
 prisma/dev.db-journal
 .env
+
+#ts-jest
+coverage/
+babel.configs.js
+jest.config.js 
