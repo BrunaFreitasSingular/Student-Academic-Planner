@@ -1,6 +1,6 @@
 import { SubjectRepository } from "../../domain/repositories/subjects.repository.js"
 
-import type { CreateSubjectDTO } from "../../domain/entities/Subjects.js";
+import type { CreateSubjectDTO } from "../../domain/entities/Subject.js";
 
 /*
 export async function createSubject(data: CreateSubjectDTO) {
