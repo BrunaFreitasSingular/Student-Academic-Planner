@@ -2,36 +2,26 @@ import { SubjectRepository } from "../../domain/repositories/subjects.repository
 
 import type { CreateSubjectDTO } from "../../domain/entities/Subject.js";
 
-/*
-export async function createSubject(data: CreateSubjectDTO) {
-  return subjectsRepository.create(data);
-}
-
-export async function listSubjects() {
-  return subjectsRepository.findAll();
-}
-
-export async function updateSubject(id: number, data: CreateSubjectDTO) {
-  return subjectsRepository.update(id, data);
-}
-
-export async function patchSubject(id: number, data: Partial<CreateSubjectDTO>) {
-  return subjectsRepository.update(id, data);
-}
-
-export async function deleteSubject(id: number) {
-  return subjectsRepository.deleteById(id);
-} 
-*/
-
-
 export class CreateSubjectUseCase {
   constructor(private subjectRepository: SubjectRepository) {}
 
+  // validar os dados aqui 
   async execute(data: CreateSubjectDTO) {
 
     if (!data.name) {
       throw new Error("Nome é obrigatório");
+    }
+
+    const valoresCreditosPermitidos = [2,4,6];
+
+    if(!valoresCreditosPermitidos.includes(data.credits)){
+        throw new Error("Numero de creditos invalido");
+    }
+
+    const valoresSemestrePermitidos = [1,2];
+
+    if(!valoresSemestrePermitidos.includes(data.semester)){
+        throw new Error("Adicione um semestre valido (1) ou (2).")
     }
 
     return this.subjectRepository.create(data);

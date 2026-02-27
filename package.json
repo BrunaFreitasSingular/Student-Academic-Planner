@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:debug": "pnpm test -- --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
@@ -15,13 +17,22 @@
   "packageManager": "pnpm@10.28.2",
   "dependencies": {
     "@prisma/client": "^6.19.2",
+    "axios": "^1.13.5",
     "fastify": "^5.7.4",
     "tsx": "^4.21.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.0",
+    "@jest/globals": "^30.2.0",
+    "@types/jest": "^30.0.0",
     "@types/node": "^25.2.0",
+    "babel-jest": "^30.2.0",
+    "jest": "^30.2.0",
+    "jest-mock-extended": "^4.0.0",
     "npx": "^10.2.2",
     "prisma": "6",
+    "ts-jest": "^29.4.6",
     "typescript": "^5.9.3"
   }
 }

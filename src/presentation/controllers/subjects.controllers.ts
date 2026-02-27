@@ -21,7 +21,6 @@ export async function createSubjectController(
   return reply.status(201).send(result);
 }
 
-
 export async function listSubjectsController(req: any, reply: any) {
 
   const repository = new PrismaSubjectRepository();
