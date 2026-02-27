@@ -1,5 +1,3 @@
-import { prisma } from "../../prismaClient.js"
-
 import { CreateSubjectDTO } from "../../domain/entities/Subjects.js";
 
 
