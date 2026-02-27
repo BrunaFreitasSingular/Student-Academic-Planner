@@ -4,4 +4,5 @@ export type UpdateSubjectDTO = {
   year?: number;
   semester?: number;
   status?: string;
+  id_user?:number;
 };

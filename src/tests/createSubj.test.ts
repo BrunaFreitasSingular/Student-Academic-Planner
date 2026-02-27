@@ -3,7 +3,7 @@ import { jest } from '@jest/globals'
 
 import { CreateSubjectUseCase } from '../application/useCases/createSubject.useCase.ts';
 
-import type { CreateSubjectDTO } from "../application/dtos/CreateSubjectDTO.ts";
+import type { CreateSubjectDTO } from "../application/dtos/Subject.DTO/CreateSubjectDTO.ts";
 
 import { PrismaSubjectRepository } from "../infrastructure/database/repositories/PrismaSubjectRepository.ts";
 

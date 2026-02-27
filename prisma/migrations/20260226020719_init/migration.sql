@@ -1,3 +1,4 @@
+-- CreateTable
 CREATE TABLE "Subject" (
     "id" SERIAL NOT NULL,
     "id_user" INTEGER NOT NULL,
@@ -10,9 +11,9 @@ CREATE TABLE "Subject" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Subject_pkey" PRIMARY KEY ("id")
-    CREATE INDEX "subject_status_index" ON "Subject"("status")
 );
 
+-- CreateTable
 CREATE TABLE "Progress" (
     "id" SERIAL NOT NULL,
     "subjectId" INTEGER NOT NULL,
@@ -22,6 +23,7 @@ CREATE TABLE "Progress" (
     CONSTRAINT "Progress_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
 CREATE TABLE "Users" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,

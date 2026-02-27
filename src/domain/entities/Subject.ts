@@ -5,7 +5,8 @@ export class Subject {
     public credits: number,
     public year: number,
     public semester: number,
-    public status: string
+    public status: string,
+    public id_user: number
   ) {}
 
   isValidCredits() {

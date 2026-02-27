@@ -1,6 +1,7 @@
 import { Subject } from "../../domain/entities/Subject.js";
 import { SubjectRepository } from "../../domain/repositories/subjects.repository.ts";
-import { CreateSubjectDTO } from "../dtos/CreateSubjectDTO.js";
+import { CreateSubjectDTO } from "../dtos/Subject.DTO/CreateSubjectDTO.ts";
+
 
 export class CreateSubjectUseCase {
   constructor(private subjectRepository: SubjectRepository) {}
@@ -13,7 +14,8 @@ export class CreateSubjectUseCase {
       data.credits,
       data.year,
       data.semester,
-      data.status
+      data.status,
+      data.id_user
     );
 
     if (!subject.name) {

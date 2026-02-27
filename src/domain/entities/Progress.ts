@@ -6,6 +6,7 @@ export class Progress {
     public totalLessons: number
   ) {}
 
+  // mostra o percentual de provas concluidas dessa cadeira em relacao a todas
   get percentage(): number {
     if (this.totalLessons === 0) return 0;
     return (this.completedLessons / this.totalLessons) * 100;

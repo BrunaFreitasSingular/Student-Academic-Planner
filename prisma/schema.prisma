@@ -16,7 +16,7 @@ model Subject {
   semester Int
   status   String
 
-  users Users @relation(fields: [id_user], references: [id])
+  users Users? @relation(fields: [id_user], references: [id])
 
   progress Progress[]
 

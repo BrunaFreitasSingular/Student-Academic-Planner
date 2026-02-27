@@ -1,5 +1,5 @@
 import { SubjectRepository } from "../../domain/repositories/subjects.repository.js";
-import { UpdateSubjectDTO } from "../dtos/PartialUpdateSubjectDTO.ts";
+import { UpdateSubjectDTO } from "../dtos/Subject.DTO/PartialUpdateSubjectDTO.ts";
 
 export class PatchSubjectUseCase {
 

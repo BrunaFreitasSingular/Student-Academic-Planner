@@ -11,7 +11,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
         credits: subject.credits,
         year: subject.year,
         semester: subject.semester,
-        status: subject.status
+        status: subject.status,
+        id_user: subject.id_user
       }
     });
 
@@ -21,7 +22,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
       created.credits,
       created.year,
       created.semester,
-      created.status
+      created.status,
+      created.id_user
     );
   }
 
@@ -35,7 +37,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
         s.credits,
         s.year,
         s.semester,
-        s.status
+        s.status,
+        s.id_user
       )
     );
   }
@@ -58,7 +61,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
     updated.credits,
     updated.year,
     updated.semester,
-    updated.status
+    updated.status,
+    updated.id_user
   );
 }
 
@@ -81,7 +85,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
       updated.credits,
       updated.year,
       updated.semester,
-      updated.status
+      updated.status,
+      updated.id_user
     );
   }
 
