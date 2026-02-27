@@ -1,11 +1,14 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
-import type { CreateSubjectDTO } from "../../application/dtos/Subject.DTO/CreateSubjectDTO.js";
+import type { CreateSubjectDTO } from "../../domain/entities/Subjects.js";
 import { CreateSubjectUseCase } from "../../application/useCases/createSubject.useCase.js";
+
 import { ListSubjectsUseCase } from "../../application/useCases/listSubject.useCase.js";
 import { UpdateSubjectUseCase } from "../../application/useCases/putSubject.useCase.js";
 import { DeleteSubjectUseCase } from "../../application/useCases/deleteSubject.useCase.js";
 import { PatchSubjectUseCase } from "../../application/useCases/patchSubject.useCase.js"
-import { PrismaSubjectRepository } from "../../infrastructure/database/repositories/PrismaSubjectRepository.js";
+
+
+import { PrismaSubjectRepository } from "../../infrastructure/database/PrismaSubjectRepository.js";
 
 
 export async function createSubjectController(

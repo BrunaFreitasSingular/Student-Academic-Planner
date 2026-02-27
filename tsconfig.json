@@ -9,6 +9,6 @@
     "outDir": "dist",
     "rootDir": "src"
   },
-  "include": ["src/**/*", "src/infrastructure/database/prismaClient.ts"],
+  "include": ["src/**/*", "src/prismaClient.ts"],
   "exclude": ["node_modules"]
 }

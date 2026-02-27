@@ -1,8 +1,12 @@
-import { Subject } from "../entities/Subject.js";
+import { prisma } from "../../prismaClient.js"
+
+import { CreateSubjectDTO } from "../../domain/entities/Subjects.js";
+
+
 
 export interface SubjectRepository {
-  create(subject: Subject): Promise<Subject>;
-  findAll(): Promise<Subject[]>;
-  update(id: number, subject: Partial<Subject>): Promise<Subject>;
+  create(data: CreateSubjectDTO): Promise<CreateSubjectDTO>;
+  findAll(): Promise<CreateSubjectDTO[]>
+  update(id: number, data: Partial<CreateSubjectDTO>): Promise<CreateSubjectDTO>;
   deleteById(id: number): Promise<void>;
 }
