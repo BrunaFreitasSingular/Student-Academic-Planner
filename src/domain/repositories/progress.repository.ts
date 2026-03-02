@@ -1,4 +1,4 @@
-import { CreateSubjectDTO } from "../../domain/entities/Subjects.js";
+//import { CreateSubjectDTO } from "../../application/dtos/Subject.DTO/CreateSubjectDTO.ts";
 
 export interface ProgressRepository{
 
