@@ -6,6 +6,8 @@ CREATE TABLE "Subject" (
     "year" INTEGER NOT NULL,
     "semester" INTEGER NOT NULL,
     "status" TEXT NOT NULL,
+    "id_user" INTEGER NOT NULL,
+    "totalLessons" INTEGER NOT NULL,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" DATETIME NOT NULL
 );

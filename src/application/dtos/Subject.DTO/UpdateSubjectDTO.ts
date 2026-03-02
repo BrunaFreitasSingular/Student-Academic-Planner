@@ -5,4 +5,5 @@ export interface UpdateSubjectDTO {
   semester: number;
   status: string;
   id_user:number;
+  totalLessons:number;
 }

@@ -1,4 +1,4 @@
-import { prisma } from "../prismaClient.js";
+import { prisma } from "../prismaClient.ts";
 import { Subject } from "../../../domain/entities/Subject.js";
 import { SubjectRepository } from "../../../domain/repositories/subjects.repository.js";
 
@@ -12,7 +12,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
         year: subject.year,
         semester: subject.semester,
         status: subject.status,
-        id_user: subject.id_user
+        id_user: subject.id_user,
+        totalLessons: subject.totalLessons
       }
     });
 
@@ -23,7 +24,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
       created.year,
       created.semester,
       created.status,
-      created.id_user
+      created.id_user,
+      created.totalLessons
     );
   }
 
@@ -38,7 +40,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
         s.year,
         s.semester,
         s.status,
-        s.id_user
+        s.id_user,
+        s.totalLessons
       )
     );
   }
@@ -62,7 +65,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
     updated.year,
     updated.semester,
     updated.status,
-    updated.id_user
+    updated.id_user,
+    updated.totalLessons
   );
 }
 
@@ -75,7 +79,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
         credits: data.credits,
         year: data.year,
         semester: data.semester,
-        status: data.status
+        status: data.status,
+        totalLessons: data.totalLessons
       }
     });
 
@@ -86,7 +91,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
       updated.year,
       updated.semester,
       updated.status,
-      updated.id_user
+      updated.id_user,
+      updated.totalLessons
     );
   }
 

@@ -6,7 +6,8 @@ export class Subject {
     public year: number,
     public semester: number,
     public status: string,
-    public id_user: number
+    public id_user: number,
+    public totalLessons: number
   ) {}
 
   isValidCredits() {
@@ -15,5 +16,9 @@ export class Subject {
 
   isValidSemester() {
     return [1, 2].includes(this.semester);
+  }
+
+  hasValidTotalLessons(){
+    return this.totalLessons >= 0;
   }
 }
