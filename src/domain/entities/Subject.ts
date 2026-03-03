@@ -9,7 +9,6 @@ export class Subject {
     public semester: number,
     public status: string,
     public id_user: number,
-    public totalLessons: number,
     public assessments: Assessment[] = []
   ) {}
 
@@ -19,10 +18,6 @@ export class Subject {
 
   isValidSemester() {
     return [1, 2].includes(this.semester);
-  }
-
-  hasValidTotalLessons(){
-    return this.totalLessons >= 0;
   }
 
   // calcula e retorna a media a partir das avaliações das disciplinas

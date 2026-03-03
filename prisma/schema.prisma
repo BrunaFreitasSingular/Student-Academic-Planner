@@ -14,11 +14,10 @@ model Subject {
   year         Int
   semester     Int
   status       String
-  totalLessons Int
 
   // forager key
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
+  id_user Int
+  user   User @relation(fields: [id_user], references: [id])
 
   // Relationship
   assessments Assessment[]
@@ -55,6 +54,6 @@ model Course {
   extensionHours              Int
 
   // Relationship 1-1 with User
-  userId Int  @unique
-  user   User @relation(fields: [userId], references: [id])
+  id_user Int  @unique
+  user   User @relation(fields: [id_user], references: [id])
 }

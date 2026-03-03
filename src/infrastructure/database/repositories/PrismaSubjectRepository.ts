@@ -12,8 +12,7 @@ export class PrismaSubjectRepository implements SubjectRepository {
         year: subject.year,
         semester: subject.semester,
         status: subject.status,
-        id_user: subject.id_user,
-        totalLessons: subject.totalLessons
+        id_user: subject.id_user
       }
     });
 
@@ -24,8 +23,7 @@ export class PrismaSubjectRepository implements SubjectRepository {
       created.year,
       created.semester,
       created.status,
-      created.id_user,
-      created.totalLessons
+      created.id_user
     );
   }
 
@@ -40,8 +38,7 @@ export class PrismaSubjectRepository implements SubjectRepository {
         s.year,
         s.semester,
         s.status,
-        s.id_user,
-        s.totalLessons
+        s.id_user
       )
     );
   }
@@ -54,7 +51,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
       credits: data.credits,
       year: data.year,
       semester: data.semester,
-      status: data.status
+      status: data.status,
+      id_user: data.id_user
     }
   });
 
@@ -66,7 +64,6 @@ export class PrismaSubjectRepository implements SubjectRepository {
     updated.semester,
     updated.status,
     updated.id_user,
-    updated.totalLessons
   );
 }
 
@@ -80,7 +77,6 @@ export class PrismaSubjectRepository implements SubjectRepository {
         year: data.year,
         semester: data.semester,
         status: data.status,
-        totalLessons: data.totalLessons
       }
     });
 
@@ -91,8 +87,7 @@ export class PrismaSubjectRepository implements SubjectRepository {
       updated.year,
       updated.semester,
       updated.status,
-      updated.id_user,
-      updated.totalLessons
+      updated.id_user
     );
   }
 
