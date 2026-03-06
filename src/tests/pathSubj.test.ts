@@ -1,7 +1,7 @@
 
 import { jest } from '@jest/globals'
 
-import { PatchSubjectUseCase } from "../application/useCases/patchSubject.useCase.ts"
+import { PatchSubjectUseCase } from "../application/useCases/Subjects/patchSubject.useCase.ts"
 
 //usada para chamar a API
 import axios from 'axios';

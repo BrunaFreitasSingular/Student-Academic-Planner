@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals'
 
-import { UpdateSubjectUseCase } from "../application/useCases/putSubject.useCase.ts"
+import { UpdateSubjectUseCase } from "../application/useCases/Subjects/putSubject.useCase.ts"
 
 
 //USANDO MOCK MANUAL
