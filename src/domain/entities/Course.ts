@@ -33,4 +33,35 @@ export class Course {
   static restore(props: CourseProps): Course {
     return new Course(props)
   }
+  private static validate(props: Omit<CourseProps, "id">) {
+
+    if (!props.name || props.name.trim().length === 0) {
+      throw new Error("Nome do curso e obrigatorio")
+    }
+
+    if (props.requiredCredits < 0) {
+      throw new Error("Numero de creditos obrigatorios invalido")
+    }
+
+    if (props.transferredCredits < 0) {
+      throw new Error("Numero de creditos convertidos invalido")
+    }
+
+    if (props.electiveCredits < 0) {
+      throw new Error("Numero de creditos eletivos invalido")
+    }
+
+    if (props.complementaryCredits < 0) {
+      throw new Error("Numero de creditos complementares invalido")
+    }
+
+    if (props.numberOfComplementaryTypes < 0) {
+      throw new Error("Numero de tipos de creditos complementares invalido")
+    }
+
+    if (props.extensionHours < 0) {
+      throw new Error("Quantidade de horas de extensão invalida")
+    }
+  }
+  
 }
