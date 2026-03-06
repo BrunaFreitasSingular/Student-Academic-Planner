@@ -1,4 +1,4 @@
-import { SubjectRepository } from "../../domain/repositories/subjects.repository.js";
+import { SubjectRepository } from "../../../domain/repositories/subjects.repository.ts";
 
 export class ListSubjectsUseCase {
 
