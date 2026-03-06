@@ -1,10 +1,10 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
-import type { CreateSubjectDTO } from "../../application/dtos/Subject.DTO/CreateSubjectDTO.js";
-import { CreateSubjectUseCase } from "../../application/useCases/createSubject.useCase.js";
-import { ListSubjectsUseCase } from "../../application/useCases/listSubject.useCase.js";
-import { UpdateSubjectUseCase } from "../../application/useCases/putSubject.useCase.js";
-import { DeleteSubjectUseCase } from "../../application/useCases/deleteSubject.useCase.js";
-import { PatchSubjectUseCase } from "../../application/useCases/patchSubject.useCase.js"
+import type { CreateSubjectDTO } from "../../application/dtos/SubjectDTO.ts";
+import { CreateSubjectUseCase } from "../../application/useCases/Subjects/createSubject.useCase.js";
+import { ListSubjectsUseCase } from "../../application/useCases/Subjects/listSubject.useCase.js";
+import { UpdateSubjectUseCase } from "../../application/useCases/Subjects/putSubject.useCase.js";
+import { DeleteSubjectUseCase } from "../../application/useCases/Subjects/deleteSubject.useCase.js";
+import { PatchSubjectUseCase } from "../../application/useCases/Subjects/patchSubject.useCase.ts"
 import { PrismaSubjectRepository } from "../../infrastructure/database/repositories/PrismaSubjectRepository.js";
 
 
@@ -31,22 +31,22 @@ export async function listSubjectsController(req: any, reply: any) {
   return reply.send(result);
 }
 
-
 export async function putSubjectController(req: any, reply: any) {
 
   const repository = new PrismaSubjectRepository();
   const useCase = new UpdateSubjectUseCase(repository);
 
-  // Validação manual para garantir comportamento de PUT (substituição total)
-  const { name, description, credits } = req.body;
-  if (!name || !description || credits === undefined) {
-    return reply.status(400).send({ 
-      error: "Bad Request", 
-      message: "Para atualização total (PUT), todos os campos (name, description, credits) são obrigatórios." 
+  const { name, credits, year, semester, status, id_user } = req.body;
+
+  if (!name || credits === undefined || !year || !semester || !status || !id_user) {
+    return reply.status(400).send({
+      error: "Bad Request",
+      message: "Todos os campos são obrigatórios para PUT."
     });
   }
 
   const result = await useCase.execute(Number(req.params.id), req.body);
+
   return reply.send(result);
 }
 
