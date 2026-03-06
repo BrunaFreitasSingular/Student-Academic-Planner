@@ -5,4 +5,5 @@ export interface SubjectRepository {
   findAll(): Promise<Subject[]>;
   update(id: number, subject: Partial<Subject>): Promise<Subject>;
   deleteById(id: number): Promise<void>;
+  findByUserId(user_id: number): Promise<Subject[]>;
 }
