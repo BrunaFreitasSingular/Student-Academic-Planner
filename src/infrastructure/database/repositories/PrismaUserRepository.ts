@@ -32,5 +32,21 @@ export class PrismaUserRepository implements UserRepository{
     })
       );
     }
+
+    async findById(id: number): Promise<User | null> {
+
+      const user = await prisma.user.findUnique({
+        where: { id }
+      });
+
+      if (!user) return null;
+
+      return User.restore({
+        id: user.id,
+        name: user.name,
+        semester: user.semester,
+        course_id: user.course_id
+      });
+    }
 }
 

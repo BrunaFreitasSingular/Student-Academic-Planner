@@ -34,4 +34,25 @@ export class PrismaCourseRepository implements CourseRepository{
             extensionHours: c.extensionHours
         }))
     }
+
+    async findById(id: number): Promise<Course | null> {
+    
+          const course = await prisma.course.findUnique({
+            where: { id }
+          });
+    
+          if (!course) return null;
+    
+          return Course.restore({
+            id: course.id,
+            name: course.name,
+            requiredCredits: course.requiredCredits,
+            transferredCredits: course.transferredCredits,
+            electiveCredits: course.electiveCredits,
+            complementaryCredits: course.complementaryCredits,
+            numberOfComplementaryTypes: course.numberOfComplementaryTypes,
+            extensionHours: course.extensionHours
+          });
+        }
 }
+

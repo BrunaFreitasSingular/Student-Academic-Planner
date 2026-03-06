@@ -104,10 +104,36 @@ export class PrismaSubjectRepository implements SubjectRepository {
     assessmentsWeights: updated.assessments.map(a => a.weight)
   });
 }
-
+// busca as disciplinas de cada usuário, para fazer as metricas de progresso
   async deleteById(id: number): Promise<void> {
     await prisma.subject.delete({
       where: { id }
     });
+  }
+
+  async findByUserId(user_id: number): Promise<Subject[]> {
+
+    const subjects = await prisma.subject.findMany({
+      where: {
+        id_user: user_id
+      },
+      include: {
+        assessments: true
+      }
+    });
+
+    return subjects.map(subject =>
+      Subject.restore({
+        id: subject.id,
+        name: subject.name,
+        credits: subject.credits,
+        year: subject.year,
+        semester: subject.semester,
+        status: subject.status,
+        id_user: subject.id_user,
+        totalAssessments: subject.totalAssessments,
+        assessmentsWeights: subject.assessments.map(a => a.weight)
+      })
+    );
   }
 }
