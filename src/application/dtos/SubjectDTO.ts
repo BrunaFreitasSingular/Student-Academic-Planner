@@ -6,5 +6,6 @@ export interface CreateSubjectDTO {
   semester: number;
   status: string;
   id_user:number;
-  totalLessons:number;
+  totalAssessments:number;
+  assessmentsWeights:number[];
 }
