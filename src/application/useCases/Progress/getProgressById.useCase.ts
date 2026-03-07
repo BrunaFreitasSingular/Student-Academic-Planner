@@ -31,11 +31,15 @@ export class getProgressByUserIdUseCase {
 
     const progress = new Progress(subjects);
 
-    return {
-      completedRequiredCredits: progress.completedCredits,
-      percentage: progress.calculatePercentage(progress.completedCredits, course.requiredCredits),
-      totalRequiredCredits: course.requiredCredits,
-      total: progress.SubjectsTotal
-    };
+    if(subjects.length === 0){
+      throw new Error("Nenhuma disciplina cadastrada.");
+    }else{
+      return {
+        completedRequiredCredits: progress.completedCredits,
+        percentage: progress.calculatePercentage(progress.completedCredits, course.requiredCredits),
+        totalRequiredCredits: course.requiredCredits,
+        total: progress.SubjectsTotal
+      };
+    }
   }
 }
