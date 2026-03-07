@@ -33,8 +33,9 @@ export class getProgressByUserIdUseCase {
 
     return {
       completedRequiredCredits: progress.completedCredits,
-      percentage: progress.calculatePercentage(course.requiredCredits),
-      totalRequiredCredits: course.requiredCredits
+      percentage: progress.calculatePercentage(progress.completedCredits, course.requiredCredits),
+      totalRequiredCredits: course.requiredCredits,
+      total: progress.SubjectsTotal
     };
   }
 }
