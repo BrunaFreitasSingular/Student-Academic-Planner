@@ -24,10 +24,12 @@ export class Course {
   get extensionHours() { return this.props.extensionHours }
 
   static create(props: Omit<CourseProps, "id">): Course {
-    return new Course({
+    const course =  new Course({
       ...props,
       id: null
     })
+    this.validate(course);
+    return course;
   }
 
   static restore(props: CourseProps): Course {
