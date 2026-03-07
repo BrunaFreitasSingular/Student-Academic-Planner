@@ -1,12 +1,10 @@
 import { FastifyInstance } from "fastify";
-import { createUserController } from "../controllers/user.controllers.ts";
-import { listUserController } from "../controllers/user.controllers.ts"
-import { getUserByIdController } from "../controllers/user.controllers.ts";
+import * as UserControllers from "../controllers/user.controllers.ts";
 
 export async function userRoutes(app: FastifyInstance) {
-  app.post("/", createUserController);
-  app.get("/", listUserController);
-  app.get("/:id", getUserByIdController);
+  app.post("/", UserControllers.createUserController);
+  app.get("/", UserControllers.listUserController);
+  app.get("/:id", UserControllers.getUserByIdController);
     //   app.put("/:id", putUserController);
     //   app.delete("/:id", deleteUserController);
     //   app.patch("/:id", patchUserController);

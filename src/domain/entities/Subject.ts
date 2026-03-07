@@ -27,7 +27,6 @@ export class Subject {
     )
   }
 
-  // getters
   get id() { return this.props.id }
   get name() { return this.props.name }
   get credits() { return this.props.credits }
@@ -43,7 +42,6 @@ export class Subject {
       ...props,
       id: null
     })
-
     subject.validate()
     return subject
   }
@@ -84,13 +82,12 @@ export class Subject {
 
     // soma os pesos para a media ponderada
     const totalWeight = this.assessments.reduce(
-      (sum, assessmentAtual) => sum + assessmentAtual.weight, 0
-    );
+      (sum, assessmentAtual) => sum + assessmentAtual.weight, 0);
+      
     // multiplica os pesos com cada avaliação
     const weightedSum = this.assessments.reduce(
       (sum, assessmentAtual) => sum + assessmentAtual.grade * assessmentAtual.weight, 0
-    );
-    
+    ); 
     return weightedSum / totalWeight;
   }
 

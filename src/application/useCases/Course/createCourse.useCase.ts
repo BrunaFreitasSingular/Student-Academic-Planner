@@ -5,11 +5,11 @@ import { Course } from "../../../domain/entities/Course.ts"
 export class CreateCourseUseCase {
   constructor(private courseRepository: CourseRepository) {}
 
-  async execute(data: CreateCourseDTO) : Promise<Course>{
+    async execute(data: CreateCourseDTO) : Promise<Course>{
   
-    const course = Course.create(data);
+      const course = Course.create(data);
 
-    return await this.courseRepository.create(course);
+      return await this.courseRepository.create(course);
 
-  }
+    }
 }

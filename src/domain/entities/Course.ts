@@ -10,10 +10,8 @@ export type CourseProps = {
 }
 
 export class Course {
-
   private constructor(private props: CourseProps) {}
 
-  // getters
   get id() { return this.props.id }
   get name() { return this.props.name }
   get requiredCredits() { return this.props.requiredCredits }
@@ -64,6 +62,5 @@ export class Course {
     if (props.extensionHours < 0) {
       throw new Error("Quantidade de horas de extensão invalida")
     }
-  }
-  
+  } 
 }

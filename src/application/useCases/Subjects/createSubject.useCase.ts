@@ -7,10 +7,10 @@ import { Subject } from "../../../domain/entities/Subject.ts";
 export class CreateSubjectUseCase {
   constructor(private subjectRepository: SubjectRepository) {}
 
-  async execute(data: CreateSubjectDTO): Promise<Subject> {
-  
-    const subject = Subject.create(data);
+    async execute(data: CreateSubjectDTO): Promise<Subject> {
+    
+      const subject = Subject.create(data);
 
-    return this.subjectRepository.create(subject);
-  }
+      return this.subjectRepository.create(subject);
+    }
 }

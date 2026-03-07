@@ -5,7 +5,6 @@ import { SubjectRepository } from "../../../domain/repositories/subjects.reposit
 export class PrismaSubjectRepository implements SubjectRepository {
 
   async create(subject: Subject): Promise<Subject> {
-
     const created = await prisma.subject.create({
       data: {
         name: subject.name,
@@ -63,33 +62,33 @@ export class PrismaSubjectRepository implements SubjectRepository {
 
   async update(id: number, data: Partial<Omit<SubjectProps, "id">>): Promise<Subject> {
 
-  const updated = await prisma.subject.update({
-    where: { id },
-    data: {
-      name: data.name,
-      credits: data.credits,
-      year: data.year,
-      semester: data.semester,
-      status: data.status,
+    const updated = await prisma.subject.update({
+      where: { id },
+      data: {
+        name: data.name,
+        credits: data.credits,
+        year: data.year,
+        semester: data.semester,
+        status: data.status,
 
-      id_user: data.id_user,
+        id_user: data.id_user,
 
-      totalAssessments: data.totalAssessments,
+        totalAssessments: data.totalAssessments,
 
-      assessments: data.assessmentsWeights
-        ? {
-            deleteMany: {},
-            create: data.assessmentsWeights.map(weight => ({
-              title: "Assessment",
-              grade: 0,
-              weight
-            }))
-          }
-        : undefined
-    },
-    include: {
-      assessments: true
-    }
+        assessments: data.assessmentsWeights
+          ? {
+              deleteMany: {},
+              create: data.assessmentsWeights.map(weight => ({
+                title: "Assessment",
+                grade: 0,
+                weight
+              }))
+            }
+          : undefined
+      },
+      include: {
+        assessments: true
+      }
   });
 
   return Subject.restore({
@@ -112,7 +111,6 @@ export class PrismaSubjectRepository implements SubjectRepository {
   }
 
   async findByUserId(user_id: number): Promise<Subject[]> {
-
     const subjects = await prisma.subject.findMany({
       where: {
         id_user: user_id

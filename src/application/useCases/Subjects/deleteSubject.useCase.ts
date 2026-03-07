@@ -4,12 +4,12 @@ export class DeleteSubjectUseCase {
 
   constructor(private subjectRepository: SubjectRepository) {}
 
-  async execute(id: number) {
+    async execute(id: number) {
 
-    if (!id) {
-      throw new Error("ID é obrigatório");
+      if (!id) {
+        throw new Error("ID é obrigatório");
+      }
+
+      await this.subjectRepository.deleteById(id);
     }
-
-    await this.subjectRepository.deleteById(id);
-  }
 }

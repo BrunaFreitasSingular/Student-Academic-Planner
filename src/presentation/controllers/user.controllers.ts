@@ -22,7 +22,6 @@ export async function listUserController(req: any, reply:any){
       const useCase = new ListUserUseCase(repository);
     
       const result = await useCase.execute();
-    
       return reply.send(result);
 }
 
@@ -33,10 +32,8 @@ export async function getUserByIdController(
 
   const repository = new PrismaUserRepository();
   const useCase = new getUserByIdUseCase(repository);
-
   const id = Number(req.params.id);
 
   const user = await useCase.execute(id);
-
   return reply.send(user);
 }

@@ -4,7 +4,7 @@ export class ListSubjectsUseCase {
 
   constructor(private subjectRepository: SubjectRepository) {}
 
-  async execute() {
-    return this.subjectRepository.findAll();
-  }
+    async execute() {
+      return this.subjectRepository.findAll();
+    }
 }

@@ -4,7 +4,6 @@ import { SubjectRepository } from "../../../domain/repositories/subjects.reposit
 import { CourseRepository } from "../../../domain/repositories/course.repository.ts";
 
 export class getProgressByUserIdUseCase {
-
   constructor(
     private userRepository: UserRepository,
     private subjectRepository: SubjectRepository,

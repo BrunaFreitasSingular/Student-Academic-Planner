@@ -6,22 +6,18 @@ export type UserProps = {
 }
 
 export class User {
-
   private constructor(private props: UserProps) {}
 
-  // getters
   get id() { return this.props.id }
   get name() { return this.props.name }
   get course_id() { return this.props.course_id }
   get semester() { return this.props.semester }
 
   static create(props: Omit<UserProps, "id">): User {
-
     const user = new User({
       ...props,
       id: null
     })
-
     user.validate()
     return user
   }
@@ -31,7 +27,6 @@ export class User {
   }
 
   private validate(): void {
-
     if (typeof this.name !== "string" || this.name.trim().length === 0) {
       throw new Error("Nome invalido")
     }

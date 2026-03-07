@@ -17,7 +17,6 @@ export async function createSubjectController(
   const useCase = new CreateSubjectUseCase(repository);
 
   const result = await useCase.execute(req.body);
-
   return reply.status(201).send(result);
 }
 
@@ -27,7 +26,6 @@ export async function listSubjectsController(req: any, reply: any) {
   const useCase = new ListSubjectsUseCase(repository);
 
   const result = await useCase.execute();
-
   return reply.send(result);
 }
 
@@ -46,7 +44,6 @@ export async function putSubjectController(req: any, reply: any) {
   }
 
   const result = await useCase.execute(Number(req.params.id), req.body);
-
   return reply.send(result);
 }
 
@@ -57,7 +54,6 @@ export async function deleteSubjectController(req: any, reply: any) {
   const useCase = new DeleteSubjectUseCase(repository);
 
   await useCase.execute(Number(req.params.id));
-
   return reply.status(204).send();
 }
 
@@ -70,6 +66,5 @@ export async function patchSubjectController(req: any, reply: any) {
     Number(req.params.id),
     req.body
   );
-
   return reply.send(result);
 }

@@ -39,7 +39,6 @@ export async function getProgressByUserIdController(
 ) {
 
   const userId = Number(req.params.userId);
-
   const userRepository = new PrismaUserRepository();
   const subjectRepository = new PrismaSubjectRepository();
   const courseRepository = new PrismaCourseRepository();
