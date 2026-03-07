@@ -4,6 +4,7 @@ import { CreateUserUseCase } from "../../application/useCases/Users/createUser.u
 import { ListUserUseCase } from "../../application/useCases/Users/listUser.useCase.ts";
 import { PrismaUserRepository } from "../../infrastructure/database/repositories/PrismaUserRepository.ts";
 import { getUserByIdUseCase } from "../../application/useCases/Users/getUserById.useCase.ts";
+import { loginUserUseCase } from "../../application/useCases/Users/loginUser.useCase.ts"
 
 export async function createUserController(
     req: FastifyRequest<{Body: CreateUserDTO}>,
@@ -35,5 +36,18 @@ export async function getUserByIdController(
   const id = Number(req.params.id);
 
   const user = await useCase.execute(id);
+  return reply.send(user);
+}
+
+export async function loginUserController(
+  req: FastifyRequest<{ Body: { name: string } }>,
+  reply: FastifyReply
+){
+
+  const repository = new PrismaUserRepository();
+  const useCase = new loginUserUseCase(repository);
+
+  const user = await useCase.execute(req.body.name);
+
   return reply.send(user);
 }
