@@ -1,23 +1,20 @@
+import { Subject  } from "./Subject.ts";
+
 export class Progress {
   constructor(
-    public readonly id: number | null,
-    public subjectId: number,
-    public completedLessons: number,
-    public totalLessons: number
-  ) {}
+      private subjects: Subject[]
+  ){}
 
-  // mostra o percentual de provas concluidas dessa cadeira em relacao a todas
-  get percentage(): number {
-    if (this.totalLessons === 0) return 0;
-    return (this.completedLessons / this.totalLessons) * 100;
+  // retorna o total de creditos concluidos
+  get completedCredits(): number {
+    return this.subjects
+      .filter(s => s.status === "CONCLUIDA")
+      .reduce((sum, s) => sum + s.credits, 0);
   }
 
-  updateLessons(completed: number, total: number) {
-    if (completed > total) {
-      throw new Error("Completed lessons cannot exceed total lessons");
-    }
-
-    this.completedLessons = completed;
-    this.totalLessons = total;
+  // passando o total como paramento pro progress nao depender da entidade Course
+  calculatePercentage(totalCredits: number): number {
+    if (totalCredits === 0) return 0;
+    return (this.completedCredits / totalCredits) * 100;
   }
 }

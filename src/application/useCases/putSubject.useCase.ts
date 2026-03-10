@@ -1,5 +1,5 @@
 import { SubjectRepository } from "../../domain/repositories/subjects.repository.js";
-import { CreateSubjectDTO } from "../../domain/entities/Subject.js";
+import type { CreateSubjectDTO } from "../../application/dtos/Subject.DTO/CreateSubjectDTO.ts";
 
 export class UpdateSubjectUseCase {
 

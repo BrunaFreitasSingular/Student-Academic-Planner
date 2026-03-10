@@ -1,5 +1,5 @@
 import { prisma } from "../../infrastructure/database/prismaClient.js";
-import type { CreateSubjectDTO } from "../../domain/entities/Subject.js";
+import type { CreateSubjectDTO } from "../../application/dtos/Subject.DTO/CreateSubjectDTO.ts";
 
 
 

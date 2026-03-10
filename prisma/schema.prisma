@@ -8,12 +8,52 @@ generator client {
 }
 
 model Subject {
-  id        Int      @id @default(autoincrement())
-  name      String
-  credits   Int
-  year      Int
-  semester  Int
-  status    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           Int     @id @default(autoincrement())
+  name         String
+  credits      Int
+  year         Int
+  semester     Int
+  status       String
+
+  // forager key
+  id_user Int
+  user   User @relation(fields: [id_user], references: [id])
+
+  // Relationship
+  assessments Assessment[]
+}
+
+model Assessment {
+  id        Int    @id @default(autoincrement())
+  title     String
+  grade     Float
+  weight    Float
+
+  // forager key
+  subjectId Int
+  subject   Subject @relation(fields: [subjectId], references: [id])
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  semester Int
+
+  // Relationships
+  subjects Subject[]
+  course   Course?
+}
+
+model Course {
+  id                          Int  @id @default(autoincrement())
+  requiredCredits             Int
+  transferredCredits          Int
+  electiveCredits             Int
+  complementaryCredits        Int
+  numberOfComplementaryTypes  Int
+  extensionHours              Int
+
+  // Relationship 1-1 with User
+  id_user Int  @unique
+  user   User @relation(fields: [id_user], references: [id])
 }

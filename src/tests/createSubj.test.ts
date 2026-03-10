@@ -3,10 +3,10 @@ import { jest } from '@jest/globals'
 
 import { CreateSubjectUseCase } from '../application/useCases/createSubject.useCase.ts';
 
-import type { CreateSubjectDTO } from "../domain/entities/Subjects.ts";
+import type { CreateSubjectDTO } from "../application/dtos/Subject.DTO/CreateSubjectDTO.ts";
 
 
-import { PrismaSubjectRepository } from "../infrastructure/database/PrismaSubjectRepository.ts";
+import { PrismaSubjectRepository } from "../infrastructure/database/repositories/PrismaSubjectRepository.ts";
 
 jest.mock("../infrastructure/database/PrismaSubjectRepository.ts");
 
