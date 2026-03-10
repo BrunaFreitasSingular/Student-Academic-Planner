@@ -1,16 +1,19 @@
 import Fastify from "fastify";
 import { subjectsRoutes } from "./presentation/routes/subjects.routes.js";
 import { progressRoutes } from "./presentation/routes/progress.routes.js";
-
+import { userRoutes } from "./presentation/routes/user.routes.ts";
+import { courseRoutes } from "./presentation/routes/course.routes.ts"
 
 export const app = Fastify({ logger: true });
 
 // registra as rotas pro CRUD
-await app.register(subjectsRoutes, { prefix: "/subjects"});
+await app.register(subjectsRoutes, { prefix: "/subjects" });
 // registra as rotas do acompanhamento do progresso
 await app.register(progressRoutes, { prefix: "/progress" });
-//console.log(app.printRoutes());
 
+await app.register(userRoutes, { prefix: "/user" });
+
+await app.register(courseRoutes, { prefix: "/course" });
 // encapsulamento da inicialização pra não ligar o servidor em ambiente de teste
 export const start = async()=>{
     try{

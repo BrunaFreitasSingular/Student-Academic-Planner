@@ -7,6 +7,7 @@ CREATE TABLE "Subject" (
     "semester" INTEGER NOT NULL,
     "status" TEXT NOT NULL,
     "id_user" INTEGER NOT NULL,
+    "totalAssessments" INTEGER NOT NULL,
     CONSTRAINT "Subject_id_user_fkey" FOREIGN KEY ("id_user") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
@@ -24,21 +25,19 @@ CREATE TABLE "Assessment" (
 CREATE TABLE "User" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
-    "semester" INTEGER NOT NULL
+    "semester" INTEGER NOT NULL,
+    "course_id" INTEGER NOT NULL,
+    CONSTRAINT "User_course_id_fkey" FOREIGN KEY ("course_id") REFERENCES "Course" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
 CREATE TABLE "Course" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name" TEXT NOT NULL,
     "requiredCredits" INTEGER NOT NULL,
     "transferredCredits" INTEGER NOT NULL,
     "electiveCredits" INTEGER NOT NULL,
     "complementaryCredits" INTEGER NOT NULL,
     "numberOfComplementaryTypes" INTEGER NOT NULL,
-    "extensionHours" INTEGER NOT NULL,
-    "id_user" INTEGER NOT NULL,
-    CONSTRAINT "Course_id_user_fkey" FOREIGN KEY ("id_user") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "extensionHours" INTEGER NOT NULL
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "Course_id_user_key" ON "Course"("id_user");

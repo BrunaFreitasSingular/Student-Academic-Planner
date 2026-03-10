@@ -1,9 +1,9 @@
 
 import { jest } from '@jest/globals'
 
-import { CreateSubjectUseCase } from '../application/useCases/createSubject.useCase.ts';
+import { CreateSubjectUseCase } from '../application/useCases/Subjects/createSubject.useCase.ts';
 
-import type { CreateSubjectDTO } from "../application/dtos/Subject.DTO/CreateSubjectDTO.ts";
+import type { CreateSubjectDTO } from "../application/dtos/SubjectDTO.ts";
 
 
 import { PrismaSubjectRepository } from "../infrastructure/database/repositories/PrismaSubjectRepository.ts";

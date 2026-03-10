@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals'
 
-import { DeleteSubjectUseCase } from "../application/useCases/deleteSubject.useCase.ts";
+import { DeleteSubjectUseCase } from "../application/useCases/Subjects/deleteSubject.useCase.ts";
 
 jest.mock("../infrastructure/database/PrismaSubjectRepository.ts");
 
