@@ -36,7 +36,14 @@ export class getProgressByUserIdUseCase {
     }else{
       return {
         completedRequiredCredits: progress.completedCredits,
-        percentage: progress.calculatePercentage(progress.completedCredits, course.requiredCredits),
+        //general progress
+        finishedPercentage: progress.calculatePercentage(progress.completedCredits, course.requiredCredits),
+        //required
+        requiredPercentage: progress.calculatePercentage(progress.requiredSubject, course.requiredCredits),
+        //eletive
+        electivePercentage: progress.calculatePercentage(progress.electiveSubject, course.electiveCredits),
+        //complementary
+        complementary: progress.calculatePercentage(progress.complementarySubject, course.complementaryCredits),
         totalRequiredCredits: course.requiredCredits,
         total: progress.SubjectsTotal
       };
