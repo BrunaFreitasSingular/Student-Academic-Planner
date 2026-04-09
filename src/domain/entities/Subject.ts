@@ -120,4 +120,21 @@ export class Subject {
     if (avg >= 6) return "C";
     return "D";
   }
+
+  toJSON() {
+    return {
+      id: this.props.id,
+      name: this.props.name,
+      credits: this.props.credits,
+      year: this.props.year,
+      semester: this.props.semester,
+      status: this.props.status,
+      id_user: this.props.id_user,
+      totalAssessments: this.props.totalAssessments,
+      type: this.props.type,
+      assessments: this.assessments,
+      average: this.average,
+      concept: this.concept
+    }
+  }
 }
