@@ -27,9 +27,25 @@ export class Progress {
     return this.subjects.length;
   }
 
+  get requiredSubject():number{
+    return this.subjects
+      .filter(s=> s.type === "REQUIRED").length
+  }
+
+  get electiveSubject():number{
+    return this.subjects
+      .filter(s=>s.type === "ELECTIVE").length
+  }
+
+  get complementarySubject():number{
+    return this.subjects
+      .filter(s=>s.type === "COMPLEMENTARY").length
+  }
+
+
   // passando o total como paramento pro progress nao depender da entidade Course
   calculatePercentage(credits: number, totalCredits: number): number {
     if (totalCredits === 0) return 0;
-    return (credits / totalCredits) * 100;
+    return Number(((credits / totalCredits) * 100).toFixed(2));
   }
 }
