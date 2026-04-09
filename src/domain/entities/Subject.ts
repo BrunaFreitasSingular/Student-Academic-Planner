@@ -1,5 +1,10 @@
 import { Assessment } from "./Assessment.ts";
 
+export type AssessmentProps = {
+  grade: number
+  weight: number
+}
+
 export type SubjectProps = {
   id: number | null
   name: string
@@ -9,22 +14,22 @@ export type SubjectProps = {
   status: string
   id_user: number
   totalAssessments: number
-  assessmentsWeights: number[]
+  assessments: AssessmentProps[]
 }
 
 export class Subject {
-  public assessments: Assessment[] = []
+  public assessments: Assessment[] = [];
 
   private constructor(private props: SubjectProps) {
-    this.assessments = props.assessmentsWeights.map((weight, index) =>
+    this.assessments = props.assessments.map((a, index) =>
       new Assessment(
         index + 1,
         props.id ?? 0,
         `Assessment ${index + 1}`,
-        0,
-        weight
+        a.grade,
+        a.weight
       )
-    )
+    );
   }
 
   get id() { return this.props.id }
@@ -35,15 +40,16 @@ export class Subject {
   get status() { return this.props.status }
   get id_user() { return this.props.id_user }
   get totalAssessments() { return this.props.totalAssessments }
-  get assessmentsWeights() { return this.props.assessmentsWeights }
+  get assessmentsData() { return this.props.assessments }
 
   static create(props: Omit<SubjectProps, "id">): Subject {
     const subject = new Subject({
       ...props,
       id: null
-    })
-    subject.validate()
-    return subject
+    });
+
+    subject.validate();
+    return subject;
   }
 
   static restore(props: SubjectProps): Subject {
@@ -72,22 +78,34 @@ export class Subject {
     if (this.year > currentYear || this.year < 2000) {
       throw new Error("Ano invalido");
     }
+
+    if (!this.assessments || this.assessments.length === 0) {
+      throw new Error("A disciplina precisa ter pelo menos uma avaliação.");
+    }
+
+    const totalWeight = this.assessments.reduce(
+      (sum, a) => sum + a.weight,
+      0
+    );
+
+    if (totalWeight !== 10) {
+      throw new Error("A soma dos pesos deve ser 10.");
+    }
   }
 
-  // calcula e retorna a media a partir das avaliações das disciplinas
-  // media ponderada
   get average(): number {
-    // se ainda não houver alguma avaliacao ele retorna 0 
     if (this.assessments.length === 0) return 0;
 
-    // soma os pesos para a media ponderada
     const totalWeight = this.assessments.reduce(
-      (sum, assessmentAtual) => sum + assessmentAtual.weight, 0);
-      
-    // multiplica os pesos com cada avaliação
+      (sum, a) => sum + a.weight,
+      0
+    );
+
     const weightedSum = this.assessments.reduce(
-      (sum, assessmentAtual) => sum + assessmentAtual.grade * assessmentAtual.weight, 0
-    ); 
+      (sum, a) => sum + a.grade * a.weight,
+      0
+    );
+
     return weightedSum / totalWeight;
   }
 
