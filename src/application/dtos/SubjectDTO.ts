@@ -1,5 +1,6 @@
+import { SubjectType } from "@prisma/client";
+
 export interface CreateSubjectDTO {
-  id: number;
   name: string;
   credits: number;
   year: number;
@@ -8,4 +9,5 @@ export interface CreateSubjectDTO {
   id_user:number;
   totalAssessments:number;
   assessmentsWeights:number[];
+  type: SubjectType;
 }

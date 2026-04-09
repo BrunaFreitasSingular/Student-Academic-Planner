@@ -8,9 +8,15 @@ export class CreateSubjectUseCase {
   constructor(private subjectRepository: SubjectRepository) {}
 
     async execute(data: CreateSubjectDTO): Promise<Subject> {
-    
-      const subject = Subject.create(data);
 
-      return this.subjectRepository.create(subject);
-    }
+    const subject = Subject.create({
+      ...data,
+      assessments: data.assessmentsWeights.map(weight => ({
+        grade: 0,
+        weight
+      }))
+    });
+
+    return this.subjectRepository.create(subject);
+  }
 }

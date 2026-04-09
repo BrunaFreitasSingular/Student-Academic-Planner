@@ -60,11 +60,8 @@ model Course {
   id                         Int @id @default(autoincrement())
   name                       String
   requiredCredits            Int
-  transferredCredits         Int
   electiveCredits            Int
   complementaryCredits       Int
-  numberOfComplementaryTypes Int
-  extensionHours             Int
 
   users User[]
 }

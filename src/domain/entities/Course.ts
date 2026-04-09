@@ -2,11 +2,8 @@ export type CourseProps = {
   id: number | null
   name: string
   requiredCredits: number
-  transferredCredits: number
   electiveCredits: number
   complementaryCredits: number
-  numberOfComplementaryTypes: number
-  extensionHours: number
 }
 
 export class Course {
@@ -15,11 +12,8 @@ export class Course {
   get id() { return this.props.id }
   get name() { return this.props.name }
   get requiredCredits() { return this.props.requiredCredits }
-  get transferredCredits() { return this.props.transferredCredits }
   get electiveCredits() { return this.props.electiveCredits }
   get complementaryCredits() { return this.props.complementaryCredits }
-  get numberOfComplementaryTypes() { return this.props.numberOfComplementaryTypes }
-  get extensionHours() { return this.props.extensionHours }
 
   static create(props: Omit<CourseProps, "id">): Course {
     const course =  new Course({
@@ -43,24 +37,12 @@ export class Course {
       throw new Error("Numero de creditos obrigatorios invalido")
     }
 
-    if (props.transferredCredits < 0) {
-      throw new Error("Numero de creditos convertidos invalido")
-    }
-
     if (props.electiveCredits < 0) {
       throw new Error("Numero de creditos eletivos invalido")
     }
 
     if (props.complementaryCredits < 0) {
       throw new Error("Numero de creditos complementares invalido")
-    }
-
-    if (props.numberOfComplementaryTypes < 0) {
-      throw new Error("Numero de tipos de creditos complementares invalido")
-    }
-
-    if (props.extensionHours < 0) {
-      throw new Error("Quantidade de horas de extensão invalida")
     }
   } 
 }

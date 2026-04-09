@@ -91,7 +91,7 @@ export class Subject {
       0
     );
 
-    if (totalWeight !== 10) {
+    if (Math.abs(totalWeight - 10) > 0.01) {
       throw new Error("A soma dos pesos deve ser 10.");
     }
   }

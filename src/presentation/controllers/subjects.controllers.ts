@@ -14,12 +14,18 @@ export async function createSubjectController(
   req: FastifyRequest<{ Body: CreateSubjectDTO }>, 
   reply: FastifyReply
 ) {
-
-  const repository = new PrismaSubjectRepository();
-  const useCase = new CreateSubjectUseCase(repository);
-
-  const result = await useCase.execute(req.body);
-  return reply.status(201).send(result);
+  try {
+    const repository = new PrismaSubjectRepository();
+    const useCase = new CreateSubjectUseCase(repository);
+    const result = await useCase.execute(req.body);
+    return reply.status(201).send(result);
+  } catch (err: any) {
+    return reply.status(500).send({
+      statusCode: 500,
+      error: "Internal Server Error",
+      message: err.message  // ← agora o front vai ver o erro real
+    });
+  }
 }
 
 export async function listSubjectsController(req: any, reply: any) {

@@ -35,9 +35,6 @@ CREATE TABLE "Course" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
     "requiredCredits" INTEGER NOT NULL,
-    "transferredCredits" INTEGER NOT NULL,
     "electiveCredits" INTEGER NOT NULL,
-    "complementaryCredits" INTEGER NOT NULL,
-    "numberOfComplementaryTypes" INTEGER NOT NULL,
-    "extensionHours" INTEGER NOT NULL
+    "complementaryCredits" INTEGER NOT NULL
 );

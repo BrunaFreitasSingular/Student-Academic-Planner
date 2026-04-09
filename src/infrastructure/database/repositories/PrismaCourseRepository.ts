@@ -8,11 +8,8 @@ export class PrismaCourseRepository implements CourseRepository{
           data: {
               name: course.name,
               requiredCredits: course.requiredCredits,
-              transferredCredits: course.transferredCredits,
               electiveCredits: course.electiveCredits,
               complementaryCredits: course.complementaryCredits,
-              numberOfComplementaryTypes: course.numberOfComplementaryTypes,
-              extensionHours: course.extensionHours
           }
       });
       
@@ -27,11 +24,8 @@ export class PrismaCourseRepository implements CourseRepository{
         id: c.id,
         name: c.name,
         requiredCredits: c.requiredCredits,
-        transferredCredits: c.transferredCredits,
         electiveCredits: c.electiveCredits,
         complementaryCredits: c.complementaryCredits,
-        numberOfComplementaryTypes: c.numberOfComplementaryTypes,
-        extensionHours: c.extensionHours
     }))
   }
 
@@ -46,11 +40,8 @@ export class PrismaCourseRepository implements CourseRepository{
       id: course.id,
       name: course.name,
       requiredCredits: course.requiredCredits,
-      transferredCredits: course.transferredCredits,
       electiveCredits: course.electiveCredits,
       complementaryCredits: course.complementaryCredits,
-      numberOfComplementaryTypes: course.numberOfComplementaryTypes,
-      extensionHours: course.extensionHours
     });
   }
 }
