@@ -43,7 +43,7 @@ export class Subject {
   get id_user() { return this.props.id_user }
   get totalAssessments() { return this.props.totalAssessments }
   get assessmentsData() { return this.props.assessments }
-   get type() { return this.props.type }
+  get type() { return this.props.type }
 
   static create(props: Omit<SubjectProps, "id">): Subject {
     const subject = new Subject({

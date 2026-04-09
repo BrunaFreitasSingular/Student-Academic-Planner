@@ -61,10 +61,10 @@ export class PrismaSubjectRepository implements SubjectRepository {
         id_user: s.id_user,
         totalAssessments: s.totalAssessments,
         assessments: s.assessments.map(a => ({
-        grade: a.grade,
-        weight: a.weight
-      })),
-      type: s.type
+          grade: a.grade,
+          weight: a.weight
+        })),
+        type: s.type
     })
   );
   }
@@ -144,9 +144,9 @@ export class PrismaSubjectRepository implements SubjectRepository {
         id_user: subject.id_user,
         totalAssessments: subject.totalAssessments,
         assessments: subject.assessments.map(a => ({
-        grade: a.grade,
-        weight: a.weight
-      })),
+          grade: a.grade,
+          weight: a.weight
+        })),
         type: subject.type
     })
   );
