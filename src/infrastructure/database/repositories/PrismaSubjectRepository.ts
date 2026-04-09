@@ -36,8 +36,11 @@ export class PrismaSubjectRepository implements SubjectRepository {
       status: created.status,
       id_user: created.id_user,
       totalAssessments: created.totalAssessments,
-      assessmentsWeights: created.assessments.map(a => a.weight)
-    });
+      assessments: created.assessments.map(a => ({
+      grade: a.grade,
+      weight: a.weight
+    }))
+  });
   }
 
   async findAll(): Promise<Subject[]> {
@@ -55,9 +58,12 @@ export class PrismaSubjectRepository implements SubjectRepository {
         status: s.status,
         id_user: s.id_user,
         totalAssessments: s.totalAssessments,
-        assessmentsWeights: s.assessments.map(a => a.weight)
-      })
-    );
+        assessments: s.assessments.map(a => ({
+        grade: a.grade,
+        weight: a.weight
+      }))
+    })
+  );
   }
 
   async update(id: number, data: Partial<Omit<SubjectProps, "id">>): Promise<Subject> {
@@ -75,20 +81,20 @@ export class PrismaSubjectRepository implements SubjectRepository {
 
         totalAssessments: data.totalAssessments,
 
-        assessments: data.assessmentsWeights
-          ? {
-              deleteMany: {},
-              create: data.assessmentsWeights.map(weight => ({
-                title: "Assessment",
-                grade: 0,
-                weight
-              }))
-            }
-          : undefined
-      },
-      include: {
-        assessments: true
-      }
+        assessments: data.assessments
+        ? {
+            deleteMany: {},
+            create: data.assessments.map(a => ({
+              title: "Assessment",
+              grade: a.grade,
+              weight: a.weight
+            }))
+          }
+        : undefined
+    },
+    include: {
+      assessments: true
+    }
   });
 
   return Subject.restore({
@@ -100,7 +106,10 @@ export class PrismaSubjectRepository implements SubjectRepository {
     status: updated.status,
     id_user: updated.id_user,
     totalAssessments: updated.totalAssessments,
-    assessmentsWeights: updated.assessments.map(a => a.weight)
+    assessments: updated.assessments.map(a => ({
+      grade: a.grade,
+      weight: a.weight
+    }))
   });
 }
 // busca as disciplinas de cada usuário, para fazer as metricas de progresso
@@ -130,8 +139,37 @@ export class PrismaSubjectRepository implements SubjectRepository {
         status: subject.status,
         id_user: subject.id_user,
         totalAssessments: subject.totalAssessments,
-        assessmentsWeights: subject.assessments.map(a => a.weight)
-      })
-    );
+        assessments: subject.assessments.map(a => ({
+        grade: a.grade,
+        weight: a.weight
+      }))
+    })
+  );
   }
+  async findById(id: number): Promise<Subject | null> {
+
+  const subject = await prisma.subject.findUnique({
+    where: { id },
+    include: {
+      assessments: true
+    }
+  });
+
+  if (!subject) return null;
+
+  return Subject.restore({
+    id: subject.id,
+    name: subject.name,
+    credits: subject.credits,
+    year: subject.year,
+    semester: subject.semester,
+    status: subject.status,
+    id_user: subject.id_user,
+    totalAssessments: subject.totalAssessments,
+    assessments: subject.assessments.map(a => ({
+      grade: a.grade,
+      weight: a.weight
+    }))
+  });
+}
 }

@@ -6,6 +6,8 @@ import { UpdateSubjectUseCase } from "../../application/useCases/Subjects/putSub
 import { DeleteSubjectUseCase } from "../../application/useCases/Subjects/deleteSubject.useCase.js";
 import { PatchSubjectUseCase } from "../../application/useCases/Subjects/patchSubject.useCase.ts"
 import { PrismaSubjectRepository } from "../../infrastructure/database/repositories/PrismaSubjectRepository.js";
+import { Subject } from "../../domain/entities/Subject.ts";
+import { GetSubjectByIdUseCase } from "../../application/useCases/Subjects/getSubjectByIdUseCase.ts"
 
 
 export async function createSubjectController(
@@ -67,4 +69,49 @@ export async function patchSubjectController(req: any, reply: any) {
     req.body
   );
   return reply.send(result);
+}
+
+export async function getSubjectByIdController(
+  req: FastifyRequest<{ Params: { id: string } }>,
+  reply: FastifyReply
+) {
+  try {
+
+    const id = Number(req.params.id);
+
+    const useCase = new GetSubjectByIdUseCase(
+      new PrismaSubjectRepository()
+    );
+
+    const subject = await useCase.execute(id);
+
+    return reply.status(200).send(subject);
+
+  } catch (err: any) {
+
+    return reply.status(404).send({
+      error: err.message
+    });
+
+  }
+}
+
+export async function getSubjectConceptController(
+  req: FastifyRequest<{ Params: { id: string } }>,
+  reply: FastifyReply
+) {
+  try {
+    const id = Number(req.params.id);
+
+    const useCase = new GetSubjectByIdUseCase(
+      new PrismaSubjectRepository()
+    );
+
+    const result = await useCase.execute(id);
+
+    return reply.send(result);
+
+  } catch (err: any) {
+    return reply.status(400).send({ error: err.message });
+  }
 }

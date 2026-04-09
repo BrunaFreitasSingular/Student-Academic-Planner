@@ -17,7 +17,7 @@ await app.register(courseRoutes, { prefix: "/course" });
 // encapsulamento da inicialização pra não ligar o servidor em ambiente de teste
 export const start = async()=>{
     try{
-        await app.listen({port:5000});
+        await app.listen({port:3001});
     } catch(err){
         app.log.error(err);
         process.exit(1);
