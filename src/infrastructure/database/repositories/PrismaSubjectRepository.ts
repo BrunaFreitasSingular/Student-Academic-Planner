@@ -20,7 +20,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
             grade: a.grade,
             weight: a.weight
           }))
-        }
+        },
+        type: subject.type
       },
       include: {
         assessments: true
@@ -37,9 +38,10 @@ export class PrismaSubjectRepository implements SubjectRepository {
       id_user: created.id_user,
       totalAssessments: created.totalAssessments,
       assessments: created.assessments.map(a => ({
-      grade: a.grade,
-      weight: a.weight
-    }))
+        grade: a.grade,
+        weight: a.weight
+      })),
+      type: subject.type
   });
   }
 
@@ -61,7 +63,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
         assessments: s.assessments.map(a => ({
         grade: a.grade,
         weight: a.weight
-      }))
+      })),
+      type: s.type
     })
   );
   }
@@ -109,7 +112,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
     assessments: updated.assessments.map(a => ({
       grade: a.grade,
       weight: a.weight
-    }))
+    })),
+    type: updated.type
   });
 }
 // busca as disciplinas de cada usuário, para fazer as metricas de progresso
@@ -142,7 +146,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
         assessments: subject.assessments.map(a => ({
         grade: a.grade,
         weight: a.weight
-      }))
+      })),
+        type: subject.type
     })
   );
   }
@@ -169,7 +174,8 @@ export class PrismaSubjectRepository implements SubjectRepository {
     assessments: subject.assessments.map(a => ({
       grade: a.grade,
       weight: a.weight
-    }))
+    })),
+    type: subject.type
   });
 }
 }

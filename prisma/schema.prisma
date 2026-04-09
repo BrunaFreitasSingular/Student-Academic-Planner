@@ -7,6 +7,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum SubjectType {
+  REQUIRED
+  ELECTIVE
+  COMPLEMENTARY
+}
+
 model Subject {
   id       Int    @id @default(autoincrement())
   name     String
@@ -21,6 +27,8 @@ model Subject {
 
   totalAssessments Int
   assessments      Assessment[]
+
+  type SubjectType
 }
 
 model Assessment {
