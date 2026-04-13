@@ -6,11 +6,11 @@ import { PrismaCourseRepository } from "../../infrastructure/database/repositori
 import { getProgressByUserIdUseCase } from "../../application/useCases/Progress/getProgressById.useCase.ts"
 
 export async function getProgressByUserIdController(
-  req: FastifyRequest<{ Params: { userId: string } }>,
+  req: FastifyRequest<{ Params: { user_id: number } }>,
   reply: FastifyReply
 ) {
 
-  const userId = Number(req.params.userId);
+  const userId = Number(req.params.user_id);
   const userRepository = new PrismaUserRepository();
   const subjectRepository = new PrismaSubjectRepository();
   const courseRepository = new PrismaCourseRepository();

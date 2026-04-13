@@ -31,9 +31,17 @@ export class getProgressByUserIdUseCase {
 
     const progress = new Progress(subjects);
 
-    if(subjects.length === 0){
-      throw new Error("Nenhuma disciplina cadastrada.");
-    }else{
+    if (subjects.length === 0) {
+  return {
+    completedRequiredCredits: 0,
+    finishedPercentage: 0,
+    requiredPercentage: 0,
+    electivePercentage: 0,
+    complementary: 0,
+    totalRequiredCredits: course.requiredCredits,
+    totalSubjects: 0
+    }
+  }else{
       return {
         completedRequiredCredits: progress.completedCredits,
         //general progress
@@ -45,7 +53,9 @@ export class getProgressByUserIdUseCase {
         //complementary
         complementary: progress.calculatePercentage(progress.complementarySubject, course.complementaryCredits),
         totalRequiredCredits: course.requiredCredits,
-        total: progress.SubjectsTotal
+        totalSubjects: progress.SubjectsTotal,
+        progressUser_id: user.course_id,
+        progressCourse_id: course.id
       };
     }
   }
