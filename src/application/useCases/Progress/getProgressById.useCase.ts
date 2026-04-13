@@ -1,29 +1,29 @@
 import { Progress } from "../../../domain/entities/Progress.ts";
-import { UserRepository } from "../../../domain/repositories/users.repository.ts";
+import { StudentRepository } from "../../../domain/repositories/student.repository.ts";
 import { SubjectRepository } from "../../../domain/repositories/subjects.repository.ts"
 import { CourseRepository } from "../../../domain/repositories/course.repository.ts";
 
-export class getProgressByUserIdUseCase {
+export class getProgressByStudentIdUseCase {
   constructor(
-    private userRepository: UserRepository,
+    private studentRepository: StudentRepository,
     private subjectRepository: SubjectRepository,
     private courseRepository: CourseRepository
   ) {}
 
-  async execute(user_id: number) {
+  async execute(student_id: number) {
 
     // busca usuario
-    const user = await this.userRepository.findById(user_id);
+    const student = await this.studentRepository.findById(student_id);
 
-    if (!user) {
+    if (!student) {
       throw new Error("Usuario nao encontrado.");
     }
 
     // busca disciplinas do usuario
-    const subjects = await this.subjectRepository.findByUserId(user_id);
+    const subjects = await this.subjectRepository.findByStudentId(student_id);
 
     // busca curso do usuario
-    const course = await this.courseRepository.findById(user.course_id);
+    const course = await this.courseRepository.findById(student.course_id);
 
     if (!course) {
       throw new Error("Curso nao encontrado.");
@@ -54,7 +54,7 @@ export class getProgressByUserIdUseCase {
         complementary: progress.calculatePercentage(progress.complementarySubject, course.complementaryCredits),
         totalRequiredCredits: course.requiredCredits,
         totalSubjects: progress.SubjectsTotal,
-        progressUser_id: user.course_id,
+        progressStudent_id: student.course_id,
         progressCourse_id: course.id
       };
     }

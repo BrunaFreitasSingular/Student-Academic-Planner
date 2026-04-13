@@ -14,12 +14,12 @@ CREATE TABLE "new_Subject" (
     "year" INTEGER NOT NULL,
     "semester" INTEGER NOT NULL,
     "status" TEXT NOT NULL,
-    "id_user" INTEGER NOT NULL,
+    "id_student" INTEGER NOT NULL,
     "totalAssessments" INTEGER NOT NULL,
     "type" TEXT NOT NULL,
-    CONSTRAINT "Subject_id_user_fkey" FOREIGN KEY ("id_user") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Subject_id_student_fkey" FOREIGN KEY ("id_student") REFERENCES "Student" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
-INSERT INTO "new_Subject" ("credits", "id", "id_user", "name", "semester", "status", "totalAssessments", "year") SELECT "credits", "id", "id_user", "name", "semester", "status", "totalAssessments", "year" FROM "Subject";
+INSERT INTO "new_Subject" ("credits", "id", "id_student", "name", "semester", "status", "totalAssessments", "year") SELECT "credits", "id", "id_student", "name", "semester", "status", "totalAssessments", "year" FROM "Subject";
 DROP TABLE "Subject";
 ALTER TABLE "new_Subject" RENAME TO "Subject";
 PRAGMA foreign_keys=ON;

@@ -1,29 +1,29 @@
-export type UserProps = {
+export type StudentProps = {
   id: number | null
   name: string
   course_id: number
   semester: number
 }
 
-export class User {
-  private constructor(private props: UserProps) {}
+export class Student {
+  private constructor(private props: StudentProps) {}
 
   get id() { return this.props.id }
   get name() { return this.props.name }
   get course_id() { return this.props.course_id }
   get semester() { return this.props.semester }
 
-  static create(props: Omit<UserProps, "id">): User {
-    const user = new User({
+  static create(props: Omit<StudentProps, "id">): Student {
+    const student = new Student({
       ...props,
       id: null
     })
-    user.validate()
-    return user
+    student.validate()
+    return student
   }
 
-  static restore(props: UserProps): User {
-    return new User(props)
+  static restore(props: StudentProps): Student {
+    return new Student(props)
   }
 
   private validate(): void {

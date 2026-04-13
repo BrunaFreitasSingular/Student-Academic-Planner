@@ -1,27 +1,27 @@
 import { prisma } from "../../infrastructure/database/prismaClient.js";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { PrismaSubjectRepository } from "../../infrastructure/database/repositories/PrismaSubjectRepository.ts";
-import { PrismaUserRepository } from "../../infrastructure/database/repositories/PrismaUserRepository.ts";
+import { PrismaStudentRepository } from "../../infrastructure/database/repositories/PrismaStudentRepository.ts";
 import { PrismaCourseRepository } from "../../infrastructure/database/repositories/PrismaCourseRepository.ts";
-import { getProgressByUserIdUseCase } from "../../application/useCases/Progress/getProgressById.useCase.ts"
+import { getProgressByStudentIdUseCase } from "../../application/useCases/Progress/getProgressById.useCase.ts"
 
-export async function getProgressByUserIdController(
-  req: FastifyRequest<{ Params: { user_id: number } }>,
+export async function getProgressByStudentIdController(
+  req: FastifyRequest<{ Params: { student_id: number } }>,
   reply: FastifyReply
 ) {
 
-  const userId = Number(req.params.user_id);
-  const userRepository = new PrismaUserRepository();
+  const studentId = Number(req.params.student_id);
+  const studentRepository = new PrismaStudentRepository();
   const subjectRepository = new PrismaSubjectRepository();
   const courseRepository = new PrismaCourseRepository();
 
-  const useCase = new getProgressByUserIdUseCase(
-    userRepository,
+  const useCase = new getProgressByStudentIdUseCase(
+    studentRepository,
     subjectRepository,
     courseRepository
   );
 
-  const progress = await useCase.execute(userId);
+  const progress = await useCase.execute(studentId);
 
   return reply.send(progress);
 }

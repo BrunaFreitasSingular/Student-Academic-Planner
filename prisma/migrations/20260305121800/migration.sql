@@ -6,9 +6,9 @@ CREATE TABLE "Subject" (
     "year" INTEGER NOT NULL,
     "semester" INTEGER NOT NULL,
     "status" TEXT NOT NULL,
-    "id_user" INTEGER NOT NULL,
+    "id_student" INTEGER NOT NULL,
     "totalAssessments" INTEGER NOT NULL,
-    CONSTRAINT "Subject_id_user_fkey" FOREIGN KEY ("id_user") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Subject_id_student_fkey" FOREIGN KEY ("id_student") REFERENCES "Student" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
@@ -22,12 +22,12 @@ CREATE TABLE "Assessment" (
 );
 
 -- CreateTable
-CREATE TABLE "User" (
+CREATE TABLE "Student" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name" TEXT NOT NULL,
     "semester" INTEGER NOT NULL,
     "course_id" INTEGER NOT NULL,
-    CONSTRAINT "User_course_id_fkey" FOREIGN KEY ("course_id") REFERENCES "Course" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Student_course_id_fkey" FOREIGN KEY ("course_id") REFERENCES "Course" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable

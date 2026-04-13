@@ -22,8 +22,8 @@ model Subject {
   status   String
 
   // forager key
-  id_user Int
-  user    User @relation(fields: [id_user], references: [id])
+  id_student Int
+  student    Student @relation(fields: [id_student], references: [id])
 
   totalAssessments Int
   assessments      Assessment[]
@@ -43,7 +43,7 @@ model Assessment {
 
 }
 
-model User {
+model Student {
   id       Int    @id @default(autoincrement())
   name     String
   semester Int
@@ -63,5 +63,5 @@ model Course {
   electiveCredits            Int
   complementaryCredits       Int
 
-  users User[]
+  students Student[]
 }

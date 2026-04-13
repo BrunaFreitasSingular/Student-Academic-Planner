@@ -16,7 +16,7 @@ export class UpdateSubjectUseCase {
         !data.year ||
         !data.semester ||
         !data.status ||
-        !data.id_user ||
+        !data.id_student ||
         !data.totalAssessments ||
         !data.assessmentsWeights
       ) {

@@ -36,7 +36,7 @@ export async function getCourseByIdController(
 
   const id = Number(req.params.id);
 
-  const user = await useCase.execute(id);
+  const student = await useCase.execute(id);
 
-  return reply.send(user);
+  return reply.send(student);
 }

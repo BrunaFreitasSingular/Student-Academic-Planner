@@ -42,9 +42,9 @@ export async function putSubjectController(req: any, reply: any) {
   const repository = new PrismaSubjectRepository();
   const useCase = new UpdateSubjectUseCase(repository);
 
-  const { name, credits, year, semester, status, id_user } = req.body;
+  const { name, credits, year, semester, status, id_student } = req.body;
 
-  if (!name || credits === undefined || !year || !semester || !status || !id_user) {
+  if (!name || credits === undefined || !year || !semester || !status || !id_student) {
     return reply.status(400).send({
       error: "Bad Request",
       message: "Todos os campos são obrigatórios para PUT."

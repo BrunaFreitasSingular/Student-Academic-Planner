@@ -12,7 +12,7 @@ export class PrismaSubjectRepository implements SubjectRepository {
         year: subject.year,
         semester: subject.semester,
         status: subject.status,
-        id_user: subject.id_user,
+        id_student: subject.id_student,
         totalAssessments: subject.assessments.length,
         assessments: {
           create: subject.assessments.map(a => ({
@@ -35,7 +35,7 @@ export class PrismaSubjectRepository implements SubjectRepository {
       year: created.year,
       semester: created.semester,
       status: created.status,
-      id_user: created.id_user,
+      id_student: created.id_student,
       totalAssessments: created.totalAssessments,
       assessments: created.assessments.map(a => ({
         grade: a.grade,
@@ -58,7 +58,7 @@ export class PrismaSubjectRepository implements SubjectRepository {
         year: s.year,
         semester: s.semester,
         status: s.status,
-        id_user: s.id_user,
+        id_student: s.id_student,
         totalAssessments: s.totalAssessments,
         assessments: s.assessments.map(a => ({
           grade: a.grade,
@@ -80,7 +80,7 @@ export class PrismaSubjectRepository implements SubjectRepository {
         semester: data.semester,
         status: data.status,
 
-        id_user: data.id_user,
+        id_student: data.id_student,
 
         totalAssessments: data.totalAssessments,
 
@@ -107,7 +107,7 @@ export class PrismaSubjectRepository implements SubjectRepository {
     year: updated.year,
     semester: updated.semester,
     status: updated.status,
-    id_user: updated.id_user,
+    id_student: updated.id_student,
     totalAssessments: updated.totalAssessments,
     assessments: updated.assessments.map(a => ({
       grade: a.grade,
@@ -123,10 +123,10 @@ export class PrismaSubjectRepository implements SubjectRepository {
     });
   }
 
-  async findByUserId(user_id: number): Promise<Subject[]> {
+  async findByStudentId(student_id: number): Promise<Subject[]> {
     const subjects = await prisma.subject.findMany({
       where: {
-        id_user: user_id
+        id_student: student_id
       },
       include: {
         assessments: true
@@ -141,7 +141,7 @@ export class PrismaSubjectRepository implements SubjectRepository {
         year: subject.year,
         semester: subject.semester,
         status: subject.status,
-        id_user: subject.id_user,
+        id_student: subject.id_student,
         totalAssessments: subject.totalAssessments,
         assessments: subject.assessments.map(a => ({
           grade: a.grade,
@@ -169,7 +169,7 @@ export class PrismaSubjectRepository implements SubjectRepository {
     year: subject.year,
     semester: subject.semester,
     status: subject.status,
-    id_user: subject.id_user,
+    id_student: subject.id_student,
     totalAssessments: subject.totalAssessments,
     assessments: subject.assessments.map(a => ({
       grade: a.grade,

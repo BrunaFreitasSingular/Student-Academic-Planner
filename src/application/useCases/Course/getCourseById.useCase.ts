@@ -2,16 +2,16 @@ import { CourseRepository } from "../../../domain/repositories/course.repository
 
 export class getCourseByIdUseCase {
 
-  constructor(private userRepository: CourseRepository) {}
+  constructor(private studentRepository: CourseRepository) {}
 
     async execute(id: number) {
 
-      const user = await this.userRepository.findById(id);
+      const student = await this.studentRepository.findById(id);
 
-        if (!user) {
+        if (!student) {
           throw new Error("Course not found");
         }
 
-        return user;
+        return student;
     }
 }

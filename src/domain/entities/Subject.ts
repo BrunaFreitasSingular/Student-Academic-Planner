@@ -13,7 +13,7 @@ export type SubjectProps = {
   year: number
   semester: number
   status: string
-  id_user: number
+  id_student: number
   totalAssessments: number
   assessments: AssessmentProps[]
   type : SubjectType
@@ -40,7 +40,7 @@ export class Subject {
   get year() { return this.props.year }
   get semester() { return this.props.semester }
   get status() { return this.props.status }
-  get id_user() { return this.props.id_user }
+  get id_student() { return this.props.id_student }
   get totalAssessments() { return this.props.totalAssessments }
   get assessmentsData() { return this.props.assessments }
   get type() { return this.props.type }
@@ -129,7 +129,7 @@ export class Subject {
       year: this.props.year,
       semester: this.props.semester,
       status: this.props.status,
-      id_user: this.props.id_user,
+      id_student: this.props.id_student,
       totalAssessments: this.props.totalAssessments,
       type: this.props.type,
       assessments: this.assessments,
