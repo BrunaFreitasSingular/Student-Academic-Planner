@@ -1,5 +1,5 @@
 import { UserRepository } from "../../../domain/repositories/user.repository.ts";
-import { CreateUserDTO } from "../../dtos/User.DTO.ts"; 
+import { CreateUserDTO } from "../../dtos/User.DTO.ts";
 import { User } from "../../../domain/entities/User.ts";
 import { hash } from "bcryptjs"; // ou outro
 
@@ -13,7 +13,7 @@ export class CreateUserUseCase {
       email: data.email,
       password_hash,
       provider: "local",
-      is_active: true
+      is_active: true,
     });
 
     return await this.userRepository.create(user);

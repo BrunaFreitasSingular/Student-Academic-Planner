@@ -3,7 +3,6 @@ import { Subject, SubjectProps } from "../../../domain/entities/Subject.js";
 import { SubjectRepository } from "../../../domain/repositories/subjects.repository.js";
 
 export class PrismaSubjectRepository implements SubjectRepository {
-
   async create(subject: Subject): Promise<Subject> {
     const created = await prisma.subject.create({
       data: {
@@ -15,17 +14,17 @@ export class PrismaSubjectRepository implements SubjectRepository {
         id_student: subject.id_student,
         totalAssessments: subject.assessments.length,
         assessments: {
-          create: subject.assessments.map(a => ({
+          create: subject.assessments.map((a) => ({
             title: a.title,
             grade: a.grade,
-            weight: a.weight
-          }))
+            weight: a.weight,
+          })),
         },
-        type: subject.type
+        type: subject.type,
       },
       include: {
-        assessments: true
-      }
+        assessments: true,
+      },
     });
 
     return Subject.restore({
@@ -37,20 +36,20 @@ export class PrismaSubjectRepository implements SubjectRepository {
       status: created.status,
       id_student: created.id_student,
       totalAssessments: created.totalAssessments,
-      assessments: created.assessments.map(a => ({
+      assessments: created.assessments.map((a) => ({
         grade: a.grade,
-        weight: a.weight
+        weight: a.weight,
       })),
-      type: subject.type
-  });
+      type: subject.type,
+    });
   }
 
   async findAll(): Promise<Subject[]> {
     const subjects = await prisma.subject.findMany({
-      include: { assessments: true }
+      include: { assessments: true },
     });
 
-    return subjects.map(s =>
+    return subjects.map((s) =>
       Subject.restore({
         id: s.id,
         name: s.name,
@@ -60,17 +59,19 @@ export class PrismaSubjectRepository implements SubjectRepository {
         status: s.status,
         id_student: s.id_student,
         totalAssessments: s.totalAssessments,
-        assessments: s.assessments.map(a => ({
+        assessments: s.assessments.map((a) => ({
           grade: a.grade,
-          weight: a.weight
+          weight: a.weight,
         })),
-        type: s.type
-    })
-  );
+        type: s.type,
+      }),
+    );
   }
 
-  async update(id: number, data: Partial<Omit<SubjectProps, "id">>): Promise<Subject> {
-
+  async update(
+    id: number,
+    data: Partial<Omit<SubjectProps, "id">>,
+  ): Promise<Subject> {
     const updated = await prisma.subject.update({
       where: { id },
       data: {
@@ -85,55 +86,55 @@ export class PrismaSubjectRepository implements SubjectRepository {
         totalAssessments: data.totalAssessments,
 
         assessments: data.assessments
-        ? {
-            deleteMany: {},
-            create: data.assessments.map(a => ({
-              title: "Assessment",
-              grade: a.grade,
-              weight: a.weight
-            }))
-          }
-        : undefined
-    },
-    include: {
-      assessments: true
-    }
-  });
+          ? {
+              deleteMany: {},
+              create: data.assessments.map((a) => ({
+                title: "Assessment",
+                grade: a.grade,
+                weight: a.weight,
+              })),
+            }
+          : undefined,
+      },
+      include: {
+        assessments: true,
+      },
+    });
 
-  return Subject.restore({
-    id: updated.id,
-    name: updated.name,
-    credits: updated.credits,
-    year: updated.year,
-    semester: updated.semester,
-    status: updated.status,
-    id_student: updated.id_student,
-    totalAssessments: updated.totalAssessments,
-    assessments: updated.assessments.map(a => ({
-      grade: a.grade,
-      weight: a.weight
-    })),
-    type: updated.type
-  });
-}
-// busca as disciplinas de cada usuário, para fazer as metricas de progresso
+    return Subject.restore({
+      id: updated.id,
+      name: updated.name,
+      credits: updated.credits,
+      year: updated.year,
+      semester: updated.semester,
+      status: updated.status,
+      id_student: updated.id_student,
+      totalAssessments: updated.totalAssessments,
+      assessments: updated.assessments.map((a) => ({
+        grade: a.grade,
+        weight: a.weight,
+      })),
+      type: updated.type,
+    });
+  }
+  // busca as disciplinas de cada usuário, para fazer as metricas de progresso
   async deleteById(id: number): Promise<void> {
     await prisma.subject.delete({
-      where: { id }
+      where: { id },
     });
   }
 
   async findByStudentId(id_student: number): Promise<Subject[]> {
     const subjects = await prisma.subject.findMany({
       where: {
-        id_student: id_student
+        id_student: id_student,
       },
       include: {
-        assessments: true
-      }
+        assessments: true,
+      },
     });
 
-    return subjects.map(subject =>
+    return subjects.map((subject) =>
       Subject.restore({
         id: subject.id,
         name: subject.name,
@@ -143,39 +144,38 @@ export class PrismaSubjectRepository implements SubjectRepository {
         status: subject.status,
         id_student: subject.id_student,
         totalAssessments: subject.totalAssessments,
-        assessments: subject.assessments.map(a => ({
+        assessments: subject.assessments.map((a) => ({
           grade: a.grade,
-          weight: a.weight
+          weight: a.weight,
         })),
-        type: subject.type
-    })
-  );
+        type: subject.type,
+      }),
+    );
   }
   async findById(id: number): Promise<Subject | null> {
+    const subject = await prisma.subject.findUnique({
+      where: { id },
+      include: {
+        assessments: true,
+      },
+    });
 
-  const subject = await prisma.subject.findUnique({
-    where: { id },
-    include: {
-      assessments: true
-    }
-  });
+    if (!subject) return null;
 
-  if (!subject) return null;
-
-  return Subject.restore({
-    id: subject.id,
-    name: subject.name,
-    credits: subject.credits,
-    year: subject.year,
-    semester: subject.semester,
-    status: subject.status,
-    id_student: subject.id_student,
-    totalAssessments: subject.totalAssessments,
-    assessments: subject.assessments.map(a => ({
-      grade: a.grade,
-      weight: a.weight
-    })),
-    type: subject.type
-  });
-}
+    return Subject.restore({
+      id: subject.id,
+      name: subject.name,
+      credits: subject.credits,
+      year: subject.year,
+      semester: subject.semester,
+      status: subject.status,
+      id_student: subject.id_student,
+      totalAssessments: subject.totalAssessments,
+      assessments: subject.assessments.map((a) => ({
+        grade: a.grade,
+        weight: a.weight,
+      })),
+      type: subject.type,
+    });
+  }
 }

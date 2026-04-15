@@ -6,8 +6,8 @@ export interface CreateSubjectDTO {
   year: number;
   semester: number;
   status: string;
-  id_student:number;
-  totalAssessments:number;
-  assessmentsWeights:number[];
+  id_student: number;
+  totalAssessments: number;
+  assessmentsWeights: number[];
   type: SubjectType;
 }

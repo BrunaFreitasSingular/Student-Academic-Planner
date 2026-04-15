@@ -1,12 +1,8 @@
-import { SubjectRepository
-
- } from "../../../domain/repositories/subjects.repository.ts";
+import { SubjectRepository } from "../../../domain/repositories/subjects.repository.ts";
 export class GetSubjectConceptUseCase {
-
   constructor(private subjectRepository: SubjectRepository) {}
 
   async execute(id: number) {
-
     const subject = await this.subjectRepository.findById(id);
 
     if (!subject) {
@@ -17,7 +13,7 @@ export class GetSubjectConceptUseCase {
       id: subject.id,
       name: subject.name,
       average: subject.average,
-      concept: subject.concept
+      concept: subject.concept,
     };
   }
 }

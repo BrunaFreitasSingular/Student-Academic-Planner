@@ -4,15 +4,14 @@ import { CreateSubjectUseCase } from "../../application/useCases/Subjects/create
 import { ListSubjectsUseCase } from "../../application/useCases/Subjects/listSubject.useCase.js";
 import { UpdateSubjectUseCase } from "../../application/useCases/Subjects/putSubject.useCase.js";
 import { DeleteSubjectUseCase } from "../../application/useCases/Subjects/deleteSubject.useCase.js";
-import { PatchSubjectUseCase } from "../../application/useCases/Subjects/patchSubject.useCase.ts"
+import { PatchSubjectUseCase } from "../../application/useCases/Subjects/patchSubject.useCase.ts";
 import { PrismaSubjectRepository } from "../../infrastructure/database/repositories/PrismaSubjectRepository.js";
 import { Subject } from "../../domain/entities/Subject.ts";
-import { GetSubjectByIdUseCase } from "../../application/useCases/Subjects/getSubjectByIdUseCase.ts"
-
+import { GetSubjectByIdUseCase } from "../../application/useCases/Subjects/getSubjectByIdUseCase.ts";
 
 export async function createSubjectController(
-  req: FastifyRequest<{ Body: CreateSubjectDTO }>, 
-  reply: FastifyReply
+  req: FastifyRequest<{ Body: CreateSubjectDTO }>,
+  reply: FastifyReply,
 ) {
   try {
     const repository = new PrismaSubjectRepository();
@@ -23,13 +22,12 @@ export async function createSubjectController(
     return reply.status(500).send({
       statusCode: 500,
       error: "Internal Server Error",
-      message: err.message 
+      message: err.message,
     });
   }
 }
 
 export async function listSubjectsController(req: any, reply: any) {
-
   const repository = new PrismaSubjectRepository();
   const useCase = new ListSubjectsUseCase(repository);
 
@@ -38,16 +36,22 @@ export async function listSubjectsController(req: any, reply: any) {
 }
 
 export async function putSubjectController(req: any, reply: any) {
-
   const repository = new PrismaSubjectRepository();
   const useCase = new UpdateSubjectUseCase(repository);
 
   const { name, credits, year, semester, status, id_student } = req.body;
 
-  if (!name || credits === undefined || !year || !semester || !status || !id_student) {
+  if (
+    !name ||
+    credits === undefined ||
+    !year ||
+    !semester ||
+    !status ||
+    !id_student
+  ) {
     return reply.status(400).send({
       error: "Bad Request",
-      message: "Todos os campos são obrigatórios para PUT."
+      message: "Todos os campos são obrigatórios para PUT.",
     });
   }
 
@@ -55,9 +59,7 @@ export async function putSubjectController(req: any, reply: any) {
   return reply.send(result);
 }
 
-
 export async function deleteSubjectController(req: any, reply: any) {
-
   const repository = new PrismaSubjectRepository();
   const useCase = new DeleteSubjectUseCase(repository);
 
@@ -66,57 +68,44 @@ export async function deleteSubjectController(req: any, reply: any) {
 }
 
 export async function patchSubjectController(req: any, reply: any) {
-
   const repository = new PrismaSubjectRepository();
   const useCase = new PatchSubjectUseCase(repository);
 
-  const result = await useCase.execute(
-    Number(req.params.id),
-    req.body
-  );
+  const result = await useCase.execute(Number(req.params.id), req.body);
   return reply.send(result);
 }
 
 export async function getSubjectByIdController(
   req: FastifyRequest<{ Params: { id: string } }>,
-  reply: FastifyReply
+  reply: FastifyReply,
 ) {
   try {
-
     const id = Number(req.params.id);
 
-    const useCase = new GetSubjectByIdUseCase(
-      new PrismaSubjectRepository()
-    );
+    const useCase = new GetSubjectByIdUseCase(new PrismaSubjectRepository());
 
     const subject = await useCase.execute(id);
 
     return reply.status(200).send(subject);
-
   } catch (err: any) {
-
     return reply.status(404).send({
-      error: err.message
+      error: err.message,
     });
-
   }
 }
 
 export async function getSubjectConceptController(
   req: FastifyRequest<{ Params: { id: string } }>,
-  reply: FastifyReply
+  reply: FastifyReply,
 ) {
   try {
     const id = Number(req.params.id);
 
-    const useCase = new GetSubjectByIdUseCase(
-      new PrismaSubjectRepository()
-    );
+    const useCase = new GetSubjectByIdUseCase(new PrismaSubjectRepository());
 
     const result = await useCase.execute(id);
 
     return reply.send(result);
-
   } catch (err: any) {
     return reply.status(400).send({ error: err.message });
   }

@@ -1,11 +1,9 @@
 import { SubjectRepository } from "../../../domain/repositories/subjects.repository.ts";
 
 export class GetSubjectByIdUseCase {
-
   constructor(private subjectRepository: SubjectRepository) {}
 
   async execute(id: number) {
-
     if (!id) {
       throw new Error("ID é obrigatório");
     }

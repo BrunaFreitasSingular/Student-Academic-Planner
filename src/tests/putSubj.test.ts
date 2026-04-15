@@ -1,17 +1,18 @@
-import { jest } from '@jest/globals'
+import { jest } from "@jest/globals";
 
-import { UpdateSubjectUseCase } from "../application/useCases/Subjects/putSubject.useCase.ts"
-
+import { UpdateSubjectUseCase } from "../application/useCases/Subjects/putSubject.useCase.ts";
 
 //USANDO MOCK MANUAL
-describe('updateSubjectTest', ()=>{
-    const repository = {
-      update: jest.fn()
-    } as any;
+describe("updateSubjectTest", () => {
+  const repository = {
+    update: jest.fn(),
+  } as any;
 
-    const useCase = new UpdateSubjectUseCase(repository);
+  const useCase = new UpdateSubjectUseCase(repository);
 
-     it('deve lançar erro quando o id for invalido', async()=>{
-        await expect(useCase.execute(0, {} as any)).rejects.toThrow("ID é obrigatório")
-    })
+  it("deve lançar erro quando o id for invalido", async () => {
+    await expect(useCase.execute(0, {} as any)).rejects.toThrow(
+      "ID é obrigatório",
+    );
+  });
 });

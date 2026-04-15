@@ -1,54 +1,75 @@
 import { Assessment } from "./Assessment.ts";
-import { SubjectType } from "@prisma/client"
+import { SubjectType } from "@prisma/client";
 
 export type AssessmentProps = {
-  grade: number
-  weight: number
-}
+  grade: number;
+  weight: number;
+};
 
 export type SubjectProps = {
-  id: number | null
-  name: string
-  credits: number
-  year: number
-  semester: number
-  status: string
-  id_student: number
-  totalAssessments: number
-  assessments: AssessmentProps[]
-  type : SubjectType
-}
+  id: number | null;
+  name: string;
+  credits: number;
+  year: number;
+  semester: number;
+  status: string;
+  id_student: number;
+  totalAssessments: number;
+  assessments: AssessmentProps[];
+  type: SubjectType;
+};
 
 export class Subject {
   public assessments: Assessment[] = [];
 
   private constructor(private props: SubjectProps) {
-    this.assessments = props.assessments.map((a, index) =>
-      new Assessment(
-        index + 1,
-        props.id ?? 0,
-        `Assessment ${index + 1}`,
-        a.grade,
-        a.weight
-      )
+    this.assessments = props.assessments.map(
+      (a, index) =>
+        new Assessment(
+          index + 1,
+          props.id ?? 0,
+          `Assessment ${index + 1}`,
+          a.grade,
+          a.weight,
+        ),
     );
   }
 
-  get id() { return this.props.id }
-  get name() { return this.props.name }
-  get credits() { return this.props.credits }
-  get year() { return this.props.year }
-  get semester() { return this.props.semester }
-  get status() { return this.props.status }
-  get id_student() { return this.props.id_student }
-  get totalAssessments() { return this.props.totalAssessments }
-  get assessmentsData() { return this.props.assessments }
-  get type() { return this.props.type }
+  get id() {
+    return this.props.id;
+  }
+  get name() {
+    return this.props.name;
+  }
+  get credits() {
+    return this.props.credits;
+  }
+  get year() {
+    return this.props.year;
+  }
+  get semester() {
+    return this.props.semester;
+  }
+  get status() {
+    return this.props.status;
+  }
+  get id_student() {
+    return this.props.id_student;
+  }
+  get totalAssessments() {
+    return this.props.totalAssessments;
+  }
+  get assessmentsData() {
+    return this.props.assessments;
+  }
+  get type() {
+    return this.props.type;
+  }
 
   static create(props: Omit<SubjectProps, "id">): Subject {
     const subject = new Subject({
       ...props,
-      id: null
+      id: null,
     });
 
     subject.validate();
@@ -56,7 +77,7 @@ export class Subject {
   }
 
   static restore(props: SubjectProps): Subject {
-    return new Subject(props)
+    return new Subject(props);
   }
 
   private validate(): void {
@@ -86,10 +107,7 @@ export class Subject {
       throw new Error("A disciplina precisa ter pelo menos uma avaliação.");
     }
 
-    const totalWeight = this.assessments.reduce(
-      (sum, a) => sum + a.weight,
-      0
-    );
+    const totalWeight = this.assessments.reduce((sum, a) => sum + a.weight, 0);
 
     if (Math.abs(totalWeight - 10) > 0.01) {
       throw new Error("A soma dos pesos deve ser 10.");
@@ -99,14 +117,11 @@ export class Subject {
   get average(): number {
     if (this.assessments.length === 0) return 0;
 
-    const totalWeight = this.assessments.reduce(
-      (sum, a) => sum + a.weight,
-      0
-    );
+    const totalWeight = this.assessments.reduce((sum, a) => sum + a.weight, 0);
 
     const weightedSum = this.assessments.reduce(
       (sum, a) => sum + a.grade * a.weight,
-      0
+      0,
     );
 
     return weightedSum / totalWeight;
@@ -134,7 +149,7 @@ export class Subject {
       type: this.props.type,
       assessments: this.assessments,
       average: this.average,
-      concept: this.concept
-    }
+      concept: this.concept,
+    };
   }
 }

@@ -1,11 +1,9 @@
 import { StudentRepository } from "../../../domain/repositories/student.repository.ts";
 
 export class loginStudentUseCase {
+  constructor(private studentRepository: StudentRepository) {}
 
-  constructor(private studentRepository: StudentRepository){}
-
-  async execute(name: string){
-
+  async execute(name: string) {
     const student = await this.studentRepository.findByName(name);
 
     if (!student) {
