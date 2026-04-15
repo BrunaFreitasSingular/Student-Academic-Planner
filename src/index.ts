@@ -3,6 +3,7 @@ import { subjectsRoutes } from "./presentation/routes/subjects.routes.js";
 import { progressRoutes } from "./presentation/routes/progress.routes.js";
 import { studentRoutes } from "./presentation/routes/student.routes.ts";
 import { courseRoutes } from "./presentation/routes/course.routes.ts"
+import { loginRoutes } from "./presentation/routes/login.routes.ts";
 
 export const app = Fastify({ logger: true });
 
@@ -14,6 +15,8 @@ await app.register(progressRoutes, { prefix: "/progress" });
 await app.register(studentRoutes, { prefix: "/student" });
 
 await app.register(courseRoutes, { prefix: "/course" });
+
+await app.register(loginRoutes, { prefix:"/login"});
 // encapsulamento da inicialização pra não ligar o servidor em ambiente de teste
 export const start = async()=>{
     try{

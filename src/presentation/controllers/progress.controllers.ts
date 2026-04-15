@@ -1,4 +1,3 @@
-import { prisma } from "../../infrastructure/database/prismaClient.js";
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { PrismaSubjectRepository } from "../../infrastructure/database/repositories/PrismaSubjectRepository.ts";
 import { PrismaStudentRepository } from "../../infrastructure/database/repositories/PrismaStudentRepository.ts";

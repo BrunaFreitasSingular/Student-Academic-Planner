@@ -8,6 +8,7 @@ export class CreateStudentUseCase{
     async execute(data: CreateStudentDTO): Promise<Student>{
         const student = Student.create({
             name: data.name,
+            user_id: data.user_id,
             course_id: data.course_id,
             semester: data.semester
         });

@@ -9,7 +9,7 @@ export class loginStudentUseCase {
     const student = await this.studentRepository.findByName(name);
 
     if (!student) {
-      throw new Error("Usuario nao encontrado.");
+      throw new Error("Estudante nao encontrado.");
     }
 
     return student;

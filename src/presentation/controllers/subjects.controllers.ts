@@ -23,7 +23,7 @@ export async function createSubjectController(
     return reply.status(500).send({
       statusCode: 500,
       error: "Internal Server Error",
-      message: err.message  // ← agora o front vai ver o erro real
+      message: err.message 
     });
   }
 }

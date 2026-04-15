@@ -1,5 +1,6 @@
 export type StudentProps = {
   id: number | null
+  user_id: string
   name: string
   course_id: number
   semester: number
@@ -9,6 +10,7 @@ export class Student {
   private constructor(private props: StudentProps) {}
 
   get id() { return this.props.id }
+  get user_id() { return this.props.user_id }
   get name() { return this.props.name }
   get course_id() { return this.props.course_id }
   get semester() { return this.props.semester }

@@ -10,7 +10,6 @@ export async function createStudentController(
     req: FastifyRequest<{Body: CreateStudentDTO}>,
     reply: FastifyReply
 ){
-    console.log(req.body)
     const repository = new PrismaStudentRepository();
     const useCase = new CreateStudentUseCase(repository);
 
