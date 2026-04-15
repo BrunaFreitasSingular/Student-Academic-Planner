@@ -1,10 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "sqlite"
   url      = "file:./dev.db"
 }
 
-generator client {
-  provider = "prisma-client-js"
+model Subject {
+  id               Int          @id @default(autoincrement())
+  name             String
+  credits          Int
+  year             Int
+  semester         Int
+  status           String
+  id_student       Int
+  totalAssessments Int
+  type             SubjectType
+  assessments      Assessment[]
+  student          Student      @relation(fields: [id_student], references: [id])
+}
+
+model Assessment {
+  id        Int     @id @default(autoincrement())
+  title     String
+  grade     Float
+  weight    Float
+  subjectId Int
+  subject   Subject @relation(fields: [subjectId], references: [id])
+}
+
+model Student {
+  id       Int    @id @default(autoincrement())
+  user_id String @unique
+  name     String
+  course_id Int
+  semester Int
+  subjects Subject[]
+
+  user    User   @relation(fields: [user_id], references: [id])
+  course   Course @relation(fields: [course_id], references: [id])
+}
+
+
+
+
+model Course {
+  id                   Int       @id @default(autoincrement())
+  name                 String
+  requiredCredits      Int
+  electiveCredits      Int
+  complementaryCredits Int
+  students             Student[]
 }
 
 enum SubjectType {
@@ -13,55 +60,13 @@ enum SubjectType {
   COMPLEMENTARY
 }
 
-model Subject {
-  id       Int    @id @default(autoincrement())
-  name     String
-  credits  Int
-  year     Int
-  semester Int
-  status   String
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  password_hash String
+  provider      String   @default("local")
+  is_active     Boolean  @default(true)
+  created_at    DateTime @default(now())
 
-  // forager key
-  id_student Int
-  student    Student @relation(fields: [id_student], references: [id])
-
-  totalAssessments Int
-  assessments      Assessment[]
-
-  type SubjectType
-}
-
-model Assessment {
-  id Int @id @default(autoincrement())
-  title  String
-  grade  Float
-  weight Float
-
-  // forager key
-  subjectId Int
-  subject   Subject @relation(fields: [subjectId], references: [id])
-
-}
-
-model Student {
-  id       Int    @id @default(autoincrement())
-  name     String
-  semester Int
-
-  // Relationships
-  subjects Subject[]
-
-  // forager key
-  course_id Int
-  course   Course @relation(fields: [course_id], references: [id])
-}
-
-model Course {
-  id                         Int @id @default(autoincrement())
-  name                       String
-  requiredCredits            Int
-  electiveCredits            Int
-  complementaryCredits       Int
-
-  students Student[]
+  student Student?
 }
