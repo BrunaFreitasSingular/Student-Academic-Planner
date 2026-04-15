@@ -123,10 +123,10 @@ export class PrismaSubjectRepository implements SubjectRepository {
     });
   }
 
-  async findByStudentId(student_id: number): Promise<Subject[]> {
+  async findByStudentId(id_student: number): Promise<Subject[]> {
     const subjects = await prisma.subject.findMany({
       where: {
-        id_student: student_id
+        id_student: id_student
       },
       include: {
         assessments: true

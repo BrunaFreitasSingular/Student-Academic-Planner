@@ -6,6 +6,7 @@ export class PrismaStudentRepository implements StudentRepository{
   async create(student: Student): Promise<Student>{
     const created = await prisma.student.create({
       data: {
+        user_id: student.user_id,
         name: student.name,
         course_id: student.course_id,
         semester: student.semester,
@@ -14,6 +15,7 @@ export class PrismaStudentRepository implements StudentRepository{
       
     return Student.restore({
       id: created.id,
+      user_id: created.user_id,
       name: created.name,
       course_id: created.course_id,
       semester: created.semester
@@ -24,6 +26,7 @@ export class PrismaStudentRepository implements StudentRepository{
     const student = await prisma.student.findMany();
       return student.map(u => Student.restore({
           id: u.id,
+          user_id: u.user_id,
           name: u.name,
           course_id: u.course_id,
           semester: u.semester
@@ -40,6 +43,7 @@ export class PrismaStudentRepository implements StudentRepository{
 
     return Student.restore({
       id: student.id,
+      user_id: student.user_id,
       name: student.name,
       semester: student.semester,
       course_id: student.course_id
@@ -56,6 +60,7 @@ export class PrismaStudentRepository implements StudentRepository{
 
     return Student.restore({
       id: student.id,
+      user_id: student.user_id,
       name: student.name,
       course_id: student.course_id,
       semester: student.semester
