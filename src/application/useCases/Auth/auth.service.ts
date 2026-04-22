@@ -8,9 +8,11 @@ export type AuthDTO = {
     id: string;
     email: string;
     student: {
-      name: string;
-      course_id: number;
-      semester: number;
+      id: number  
+      name: string
+      course_id: number
+      course_name: string
+      semester: number
     } | null;
   };
 };
@@ -20,10 +22,20 @@ export async function loginService(
   password: string,
 ): Promise<AuthDTO> {
   const record = await prisma.user.findUnique({
-    where: { email },
-    include: { student: true },
-  });
+  where: { email },
+  include: {
+    student: {
+      include: {
+        course: true 
+      }
+    }
+  },
+});
+console.log('student:', record?.student)
+console.log('course:', record?.student?.course)
 
+console.log('record encontrado:', record ? 'sim' : 'não')
+  console.log('is_active:', record?.is_active)
   if (!record || !record.is_active) {
     throw new Error("Credenciais inválidas");
   }
@@ -46,8 +58,10 @@ export async function loginService(
       email: record.email,
       student: record.student
         ? {
+            id: record.student.id,  // ← adiciona
             name: record.student.name,
             course_id: record.student.course_id,
+            course_name: record.student.course?.name ?? '',
             semester: record.student.semester,
           }
         : null,

@@ -3,7 +3,7 @@ import { SubjectRepository } from "../../../domain/repositories/subjects.reposit
 export class ListSubjectsUseCase {
   constructor(private subjectRepository: SubjectRepository) {}
 
-  async execute() {
-    return this.subjectRepository.findAll();
+  async execute(id_student: number) {
+    return this.subjectRepository.findByStudentId(id_student);
   }
 }

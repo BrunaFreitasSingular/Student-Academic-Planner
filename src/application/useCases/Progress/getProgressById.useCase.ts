@@ -10,16 +10,16 @@ export class getProgressByStudentIdUseCase {
     private courseRepository: CourseRepository,
   ) {}
 
-  async execute(student_id: number) {
+  async execute(id_student: number) {
     // busca usuario
-    const student = await this.studentRepository.findById(student_id);
+    const student = await this.studentRepository.findById(id_student);
 
     if (!student) {
       throw new Error("Usuario nao encontrado.");
     }
 
     // busca disciplinas do usuario
-    const subjects = await this.subjectRepository.findByStudentId(student_id);
+    const subjects = await this.subjectRepository.findByStudentId(id_student);
 
     // busca curso do usuario
     const course = await this.courseRepository.findById(student.course_id);
@@ -65,7 +65,7 @@ export class getProgressByStudentIdUseCase {
         ),
         totalRequiredCredits: course.requiredCredits,
         totalSubjects: progress.SubjectsTotal,
-        progressStudent_id: student.course_id,
+        progressid_student: student.course_id,
         progressCourse_id: course.id,
       };
     }
