@@ -1,22 +1,21 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { CreateUserDTO } from "../../application/dtos/User.DTO.ts";
-import { PrismaUserRepository } from "../../infrastructure/database/repositories/PrismaUserRepository.ts";
-import { CreateUserUseCase } from "../../application/useCases/User/createUser.useCase.ts";
+import { LoginUserDTO } from "../../application/dtos/Login.DTO.ts";
 
-export async function createLoginController(
-  req: FastifyRequest<{ Body: CreateUserDTO }>,
+import { loginService } from "../../application/useCases/Auth/auth.service.ts";
+
+export async function loginController(
+  req: FastifyRequest<{ Body: LoginUserDTO }>,
   reply: FastifyReply,
 ) {
   try {
-    const repository = new PrismaUserRepository();
-    const useCase = new CreateUserUseCase(repository);
-    const result = await useCase.execute(req.body);
-    return reply.status(201).send(result);
+    const { email, password } = req.body
+    const result = await loginService(email, password)
+    return reply.status(200).send(result)
   } catch (err: any) {
-    return reply.status(500).send({
-      statusCode: 500,
-      error: "Internal Server Error",
-      message: err.message,
-    });
+    return reply.status(401).send({
+      statusCode: 401,
+      error:      'Unauthorized',
+      message:    err.message,
+    })
   }
 }

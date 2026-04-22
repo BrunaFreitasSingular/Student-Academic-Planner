@@ -28,26 +28,36 @@ export async function createSubjectController(
 }
 
 export async function listSubjectsController(req: any, reply: any) {
+  const id_student = Number(req.query.id_student);
+
+   if (!id_student) {
+    return reply.status(400).send({
+      message: "id_student é obrigatório",
+    })
+  }
   const repository = new PrismaSubjectRepository();
   const useCase = new ListSubjectsUseCase(repository);
 
-  const result = await useCase.execute();
+ const result = await useCase.execute(id_student);
   return reply.send(result);
 }
 
 export async function putSubjectController(req: any, reply: any) {
+  try {
+     console.log('body recebido no PUT:', JSON.stringify(req.body, null, 2))  // ← adiciona
   const repository = new PrismaSubjectRepository();
   const useCase = new UpdateSubjectUseCase(repository);
 
-  const { name, credits, year, semester, status, id_student } = req.body;
-
+  const { name, credits, year, semester, status, id_student, grades } = req.body;
+  console.log('grades:', grades)  
   if (
     !name ||
     credits === undefined ||
     !year ||
     !semester ||
     !status ||
-    !id_student
+    !id_student ||
+    !grades
   ) {
     return reply.status(400).send({
       error: "Bad Request",
@@ -55,8 +65,15 @@ export async function putSubjectController(req: any, reply: any) {
     });
   }
 
-  const result = await useCase.execute(Number(req.params.id), req.body);
-  return reply.send(result);
+  const result = await useCase.execute(Number(req.params.id), req.body)
+    return reply.send(result)
+  } catch (err: any) {
+    return reply.status(500).send({
+      statusCode: 500,
+      error:      'Internal Server Error',
+      message:    err.message,
+    })
+  }
 }
 
 export async function deleteSubjectController(req: any, reply: any) {

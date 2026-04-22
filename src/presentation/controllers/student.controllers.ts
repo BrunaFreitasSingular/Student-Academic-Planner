@@ -10,11 +10,26 @@ export async function createStudentController(
   req: FastifyRequest<{ Body: CreateStudentDTO }>,
   reply: FastifyReply,
 ) {
-  const repository = new PrismaStudentRepository();
-  const useCase = new CreateStudentUseCase(repository);
+  try {
+    const repository = new PrismaStudentRepository()
+    const useCase    = new CreateStudentUseCase(repository)
 
-  const result = useCase.execute(req.body);
-  return reply.status(201).send(result);
+    const result = await useCase.execute(req.body) 
+
+    return reply.status(201).send({
+      id:        result.id,
+      name:      result.name,
+      user_id:   result.user_id,
+      course_id: result.course_id,
+      semester:  result.semester,
+    })
+  } catch (err: any) {
+    return reply.status(500).send({
+      statusCode: 500,
+      error:      'Internal Server Error',
+      message:    err.message,
+    })
+  }
 }
 
 export async function listStudentController(req: any, reply: any) {
