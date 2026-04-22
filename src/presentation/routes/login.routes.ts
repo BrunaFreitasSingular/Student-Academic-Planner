@@ -1,8 +1,10 @@
 import { FastifyInstance } from "fastify";
-import { loginService } from "../../application/useCases/Auth/auth.service.ts";
 
 import * as loginController from "../controllers/login.controllers.ts";
+import * as userController from "../controllers/user.controllers.ts"
 
 export async function loginRoutes(app: FastifyInstance) {
-  app.post("/", loginController.createLoginController);
+  app.post("/", loginController.loginController);
+  app.get("/users", userController.listUsersController);
+  app.post("/users", userController.createUserController);
 }
