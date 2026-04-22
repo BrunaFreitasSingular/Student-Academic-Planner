@@ -27,7 +27,7 @@ model Assessment {
   grade     Float
   weight    Float
   subjectId Int
-  subject   Subject @relation(fields: [subjectId], references: [id])
+  subject   Subject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
 }
 
 model Student {
