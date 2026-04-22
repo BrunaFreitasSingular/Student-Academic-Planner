@@ -11,24 +11,24 @@ export async function createStudentController(
   reply: FastifyReply,
 ) {
   try {
-    const repository = new PrismaStudentRepository()
-    const useCase    = new CreateStudentUseCase(repository)
+    const repository = new PrismaStudentRepository();
+    const useCase = new CreateStudentUseCase(repository);
 
-    const result = await useCase.execute(req.body) 
+    const result = await useCase.execute(req.body);
 
     return reply.status(201).send({
-      id:        result.id,
-      name:      result.name,
-      user_id:   result.user_id,
+      id: result.id,
+      name: result.name,
+      user_id: result.user_id,
       course_id: result.course_id,
-      semester:  result.semester,
-    })
+      semester: result.semester,
+    });
   } catch (err: any) {
     return reply.status(500).send({
       statusCode: 500,
-      error:      'Internal Server Error',
-      message:    err.message,
-    })
+      error: "Internal Server Error",
+      message: err.message,
+    });
   }
 }
 

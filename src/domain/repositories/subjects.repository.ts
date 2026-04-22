@@ -1,8 +1,8 @@
 import { Subject } from "../entities/Subject.js";
-import { AssessmentData } from "../../infrastructure/database/repositories/PrismaSubjectRepository.js"
-export type SubjectUpdateData = Partial<Omit<Subject, 'id' | 'assessments'>> & {
-  assessments?: AssessmentData[]
-}
+import { AssessmentData } from "../../infrastructure/database/repositories/PrismaSubjectRepository.js";
+export type SubjectUpdateData = Partial<Omit<Subject, "id" | "assessments">> & {
+  assessments?: AssessmentData[];
+};
 
 export interface SubjectRepository {
   create(subject: Subject): Promise<Subject>;

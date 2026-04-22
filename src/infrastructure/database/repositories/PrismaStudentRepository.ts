@@ -67,12 +67,12 @@ export class PrismaStudentRepository implements StudentRepository {
     });
   }
 
-    async findByUserId(user_id: string): Promise<Student | null> {
+  async findByUserId(user_id: string): Promise<Student | null> {
     const student = await prisma.student.findFirst({
       where: { user_id },
-    })
+    });
 
-    if (!student) return null
+    if (!student) return null;
 
     return Student.restore({
       id: student.id,
@@ -80,6 +80,6 @@ export class PrismaStudentRepository implements StudentRepository {
       name: student.name,
       course_id: student.course_id,
       semester: student.semester,
-    })
+    });
   }
 }

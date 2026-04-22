@@ -3,9 +3,9 @@ import { Subject, SubjectProps } from "../../../domain/entities/Subject.js";
 import { SubjectRepository } from "../../../domain/repositories/subjects.repository.js";
 
 export type AssessmentData = {
-grade:  number
-weight: number
-}
+  grade: number;
+  weight: number;
+};
 export class PrismaSubjectRepository implements SubjectRepository {
   async create(subject: Subject): Promise<Subject> {
     const created = await prisma.subject.create({
@@ -72,10 +72,12 @@ export class PrismaSubjectRepository implements SubjectRepository {
     );
   }
 
-
-  async update(id: number, data: Partial<Omit<SubjectProps, 'id' | 'assessments'>> & {
-    assessments?: AssessmentData[]  // ← tipo parcial em vez de Assessment[]
-  }): Promise<Subject> {
+  async update(
+    id: number,
+    data: Partial<Omit<SubjectProps, "id" | "assessments">> & {
+      assessments?: AssessmentData[];
+    },
+  ): Promise<Subject> {
     const updated = await prisma.subject.update({
       where: { id },
       data: {
@@ -121,7 +123,7 @@ export class PrismaSubjectRepository implements SubjectRepository {
       type: updated.type,
     });
   }
-  // busca as disciplinas de cada usuário, para fazer as metricas de progresso
+  // busca as disciplinas de cada usuario, para fazer as metricas de progresso
   async deleteById(id: number): Promise<void> {
     await prisma.subject.delete({
       where: { id },

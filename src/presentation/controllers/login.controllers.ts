@@ -8,14 +8,14 @@ export async function loginController(
   reply: FastifyReply,
 ) {
   try {
-    const { email, password } = req.body
-    const result = await loginService(email, password)
-    return reply.status(200).send(result)
+    const { email, password } = req.body;
+    const result = await loginService(email, password);
+    return reply.status(200).send(result);
   } catch (err: any) {
     return reply.status(401).send({
       statusCode: 401,
-      error:      'Unauthorized',
-      message:    err.message,
-    })
+      error: "Unauthorized",
+      message: err.message,
+    });
   }
 }

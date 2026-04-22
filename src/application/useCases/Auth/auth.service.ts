@@ -8,11 +8,11 @@ export type AuthDTO = {
     id: string;
     email: string;
     student: {
-      id: number  
-      name: string
-      course_id: number
-      course_name: string
-      semester: number
+      id: number;
+      name: string;
+      course_id: number;
+      course_name: string;
+      semester: number;
     } | null;
   };
 };
@@ -22,31 +22,31 @@ export async function loginService(
   password: string,
 ): Promise<AuthDTO> {
   const record = await prisma.user.findUnique({
-  where: { email },
-  include: {
-    student: {
-      include: {
-        course: true 
-      }
-    }
-  },
-});
-console.log('student:', record?.student)
-console.log('course:', record?.student?.course)
+    where: { email },
+    include: {
+      student: {
+        include: {
+          course: true,
+        },
+      },
+    },
+  });
+  console.log("student:", record?.student);
+  console.log("course:", record?.student?.course);
 
-console.log('record encontrado:', record ? 'sim' : 'não')
-  console.log('is_active:', record?.is_active)
+  console.log("record encontrado:", record ? "sim" : "não");
+  console.log("is_active:", record?.is_active);
   if (!record || !record.is_active) {
     throw new Error("Credenciais inválidas");
   }
 
-  // 2. compara senha com hash
+  //compara senha com hash
   const valid = await bcrypt.compare(password, record.password_hash);
   if (!valid) {
     throw new Error("Credenciais inválidas"); // mesma msg — não revela qual campo errou
   }
 
-  // 3. gera JWT
+  //gera JWT
   const token = jwt.sign({ userId: record.id }, process.env.JWT_SECRET!, {
     expiresIn: "7d",
   });
@@ -58,10 +58,10 @@ console.log('record encontrado:', record ? 'sim' : 'não')
       email: record.email,
       student: record.student
         ? {
-            id: record.student.id,  // ← adiciona
+            id: record.student.id,
             name: record.student.name,
             course_id: record.student.course_id,
-            course_name: record.student.course?.name ?? '',
+            course_name: record.student.course?.name ?? "",
             semester: record.student.semester,
           }
         : null,

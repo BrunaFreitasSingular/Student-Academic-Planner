@@ -10,16 +10,14 @@ export async function getProgressByStudentIdController(
 ) {
   const user_id = req.params.user_id;
 
-  
   const studentRepository = new PrismaStudentRepository();
   const subjectRepository = new PrismaSubjectRepository();
   const courseRepository = new PrismaCourseRepository();
 
-
-  const student = await studentRepository.findByUserId(user_id)
+  const student = await studentRepository.findByUserId(user_id);
   if (!student) {
-      return reply.status(404).send({ error: "Estudante não encontrado." })
-    }
+    return reply.status(404).send({ error: "Estudante não encontrado." });
+  }
   const useCase = new getProgressByStudentIdUseCase(
     studentRepository,
     subjectRepository,
@@ -29,7 +27,7 @@ export async function getProgressByStudentIdController(
   const progress = await useCase.execute(Number(student.id));
 
   console.log("USER_ID RECEBIDO:", user_id);
- console.log("STUDENT:", student);
- 
+  console.log("STUDENT:", student);
+
   return reply.send(progress);
 }

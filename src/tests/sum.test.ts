@@ -1,8 +1,3 @@
-//import { prisma } from "../prismaClient.ts";
-//import { app } from '../index.ts';
-
-//import { describe, expect, test } from '@jest/globals';
-
 import { sum } from "./sum.ts";
 
 //grupo de testes
@@ -27,13 +22,3 @@ describe("sum", () => {
     expect(result).toBe(10);
   });
 });
-
-/*
-
-describe("subjects.controllers",()=>{
-  it('should throw if signInModel is invalid', async ()=>{
-    const subjects.controllers = new subjects.controllers();
-  })
-})
-
-*/
