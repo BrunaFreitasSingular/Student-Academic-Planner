@@ -2,6 +2,10 @@ import { prisma } from "../prismaClient.js";
 import { Subject, SubjectProps } from "../../../domain/entities/Subject.js";
 import { SubjectRepository } from "../../../domain/repositories/subjects.repository.js";
 
+export type AssessmentData = {
+grade:  number
+weight: number
+}
 export class PrismaSubjectRepository implements SubjectRepository {
   async create(subject: Subject): Promise<Subject> {
     const created = await prisma.subject.create({
@@ -68,10 +72,10 @@ export class PrismaSubjectRepository implements SubjectRepository {
     );
   }
 
-  async update(
-    id: number,
-    data: Partial<Omit<SubjectProps, "id">>,
-  ): Promise<Subject> {
+
+  async update(id: number, data: Partial<Omit<SubjectProps, 'id' | 'assessments'>> & {
+    assessments?: AssessmentData[]  // ← tipo parcial em vez de Assessment[]
+  }): Promise<Subject> {
     const updated = await prisma.subject.update({
       where: { id },
       data: {

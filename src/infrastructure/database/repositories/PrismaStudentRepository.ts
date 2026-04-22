@@ -66,4 +66,20 @@ export class PrismaStudentRepository implements StudentRepository {
       semester: student.semester,
     });
   }
+
+    async findByUserId(user_id: string): Promise<Student | null> {
+    const student = await prisma.student.findFirst({
+      where: { user_id },
+    })
+
+    if (!student) return null
+
+    return Student.restore({
+      id: student.id,
+      user_id: student.user_id,
+      name: student.name,
+      course_id: student.course_id,
+      semester: student.semester,
+    })
+  }
 }
