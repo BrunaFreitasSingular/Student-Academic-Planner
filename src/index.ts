@@ -1,33 +1,33 @@
 import "dotenv/config";
+
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import { subjectsRoutes } from "./presentation/routes/subjects.routes.js";
 import { progressRoutes } from "./presentation/routes/progress.routes.js";
 import { studentRoutes } from "./presentation/routes/student.routes.ts";
 import { courseRoutes } from "./presentation/routes/course.routes.ts";
-import { loginRoutes } from "./presentation/routes/login.routes.ts";
+import { authRoutes } from "./presentation/routes/auth.routes.ts";
 import { userRoutes } from "./presentation/routes/user.routes.ts";
-import { authMiddleware } from "./presentation/middleware/auth.middleware.ts";
 
 export const app = Fastify({ logger: true });
 
 await app.register(cors, {
-  origin: process.env.FRONTEND_URL, 
+  origin: "http://localhost:3000", // URL do frontend
   methods: ["GET", "POST", "PUT", "DELETE"],
 });
 
-await app.register(loginRoutes, { prefix: "/login" });
-await app.register(userRoutes, { prefix: "/user" });
+// registra as rotas pro CRUD
+await app.register(subjectsRoutes, { prefix: "/subjects" });
+// registra as rotas do acompanhamento do progresso
+await app.register(progressRoutes, { prefix: "/progress" });
 
-await app.register(async (protectedApp) => {
-  protectedApp.addHook("preHandler", authMiddleware);
+await app.register(studentRoutes, { prefix: "/students" });
 
-  await protectedApp.register(subjectsRoutes, { prefix: "/subjects" });
-  await protectedApp.register(progressRoutes, { prefix: "/progress" });
-  await protectedApp.register(studentRoutes, { prefix: "/student" });
-  await protectedApp.register(courseRoutes, { prefix: "/course" });
-});
+await app.register(courseRoutes, { prefix: "/courses" });
 
+await app.register(authRoutes, { prefix: "/auth" });
+
+await app.register(userRoutes, { prefix: "/users" });
 // encapsulamento da inicialização pra não ligar o servidor em ambiente de teste
 export const start = async () => {
   try {

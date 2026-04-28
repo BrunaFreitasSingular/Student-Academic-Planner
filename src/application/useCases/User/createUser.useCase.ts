@@ -1,6 +1,6 @@
-import bcrypt from "bcryptjs";
-import { UserRepository } from "../../../domain/repositories/user.repository.ts";
 import { User } from "../../../domain/entities/User.ts";
+import type { UserRepository } from "../../../domain/repositories/user.repository.ts";
+import type { PasswordHasher } from "../../../domain/services/PasswordHasher.ts";
 
 export type CreateUserDTO = {
   email: string;
@@ -14,30 +14,28 @@ export type CreateUserResponseDTO = {
 };
 
 export class CreateUserUseCase {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly passwordHasher: PasswordHasher,
+  ) {}
 
   async execute(data: CreateUserDTO): Promise<CreateUserResponseDTO> {
-    // verifica se email já existe
     const existing = await this.userRepository.findByEmail(data.email);
     if (existing) {
       throw new Error("Email já cadastrado");
     }
 
-    // gera o hash da senha
-    const password_hash = await bcrypt.hash(data.password, 10);
+    const password_hash = await this.passwordHasher.hash(data.password);
 
-    // cria a entidade
     const user = User.create({
       email: data.email,
-      password_hash: password_hash,
+      password_hash,
       provider: data.provider ?? "local",
       is_active: true,
     });
 
-    // persiste
     const created = await this.userRepository.create(user);
 
-    // retorna DTO
     return {
       id: created.id!,
       email: created.email,

@@ -37,6 +37,16 @@ export class Course {
   static restore(props: CourseProps): Course {
     return new Course(props);
   }
+
+  toJSON() {
+    return {
+      id: this.props.id,
+      name: this.props.name,
+      requiredCredits: this.props.requiredCredits,
+      electiveCredits: this.props.electiveCredits,
+      complementaryCredits: this.props.complementaryCredits,
+    };
+  }
   private static validate(props: Omit<CourseProps, "id">) {
     if (!props.name || props.name.trim().length === 0) {
       throw new Error("Nome do curso e obrigatorio");
