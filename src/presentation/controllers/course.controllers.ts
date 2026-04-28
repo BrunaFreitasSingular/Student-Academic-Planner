@@ -12,7 +12,7 @@ export async function createCourseController(
   const repository = new PrismaCourseRepository();
   const useCase = new CreateCourseUseCase(repository);
 
-  const result = useCase.execute(req.body);
+  const result = await useCase.execute(req.body);
   return reply.status(201).send(result);
 }
 

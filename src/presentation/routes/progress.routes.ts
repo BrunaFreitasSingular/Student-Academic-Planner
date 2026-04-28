@@ -1,6 +1,12 @@
-import { FastifyInstance } from "fastify";
-import * as progressController from "../controllers/progress.controllers.js";
+import type { FastifyInstance } from "fastify";
+import * as progressController from "../controllers/progress.controllers.ts";
+import { authMiddleware } from "../middlewares/authMiddleware.ts";
+import { JwtTokenService } from "../../infrastructure/auth/JwtTokenService.ts";
 
 export async function progressRoutes(app: FastifyInstance) {
-  app.get("/:user_id", progressController.getProgressByStudentIdController);
+  app.addHook(
+    "preHandler",
+    authMiddleware(new JwtTokenService(process.env.JWT_SECRET!)),
+  );
+  app.get("/", progressController.getProgressController);
 }
